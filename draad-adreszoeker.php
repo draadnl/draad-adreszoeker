@@ -22,7 +22,44 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @see https://developer.wordpress.org/reference/functions/register_block_type/
  */
-function draad_adreszoeker_block_init() {
-	register_block_type( __DIR__ . '/build/draad-adreszoeker' );
+
+if ( !class_exists( 'Draad_Adreszoeker' ) ) {
+	
+	class Draad_Adreszoeker {
+
+		public function __construct() {
+
+			// Register block
+			add_action( 'init', [ $this, 'register_block' ] );
+
+			// Register ajax handler.
+			add_action( 'wp_ajax_nopriv_draad_adreszoeker', [ $this, 'handler' ] );
+			add_action( 'wp_ajax_draad_adreszoeker', [ $this, 'handler' ] );
+			add_action( 'wp_ajax_nopriv_draad_adreszoeker_get_streets', [ $this, 'get_streets' ] );
+			add_action( 'wp_ajax_draad_adreszoeker_get_streets', [ $this, 'get_streets' ] );
+
+		}
+
+		public function register_block() {
+			register_block_type( __DIR__ . '/build/draad-adreszoeker' );
+		}
+
+		public function handler() {
+
+			wp_send_json_success( __( 'Resultaten successvol opgehaald.', 'draad-adreszoeker' ) );
+
+		}
+
+		public function get_streets() {
+
+			wp_send_json_success( __( 'Mooie lijst met straten.', 'draad-adreszoeker' ) );
+
+		}
+
+	}
+
 }
-add_action( 'init', 'draad_adreszoeker_block_init' );
+
+if ( class_exists( 'Draad_Adreszoeker' ) ) {
+	new Draad_Adreszoeker();
+}
