@@ -6,7 +6,7 @@
  * Requires at least: 6.7
  * Requires PHP:      7.4
  * Author:            Draad Internet &amp; Media B.V.
- * Text Domain:       draad-adreszoeker
+ * Text Domain:       draad-az
  *
  * @package DraadAdreszoeker
  */
@@ -63,13 +63,13 @@ if ( !class_exists( 'Draad_Adreszoeker' ) ) {
 
 		public function get_advice() {
 
-			wp_send_json_success( __( 'Resultaten successvol opgehaald.', 'draad-adreszoeker' ) );
+			wp_send_json_success( __( 'Resultaten successvol opgehaald.', 'draad-az' ) );
 
 		}
 
 		public function get_streets() {
 
-			wp_send_json_success( __( 'Mooie lijst met straten.', 'draad-adreszoeker' ) );
+			wp_send_json_success( __( 'Mooie lijst met straten.', 'draad-az' ) );
 
 		}
 
