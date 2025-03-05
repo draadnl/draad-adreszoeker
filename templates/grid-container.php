@@ -189,7 +189,7 @@ foreach ( $neighbourhoods as $neighbourhood ) :
                 </div>
 
             <?php
-                // Create for each tab a tabpanel
+                // TODO: De Adreszpeler advies 2 tegels terug laten komen
                 foreach ( $tabs as $index => $tab ) :
                     
                     $advice_2_args = [
@@ -233,8 +233,12 @@ foreach ( $neighbourhoods as $neighbourhood ) :
 
                         <div class="draad-tabs__tabpanel-grid">
                         <?php
+                            // TODO: De Adreszpeler advies 2 tegels terug laten komen, in de card checken of de warmteoplossing overeenkomt 
                             if ( is_iterable( $advice_2 ) ) {
                                 foreach ( $advice_2 as $advice ) {
+                                    $advice = $advice->ID;
+
+                                    include 'card.php';
                                    
                                 }
                             }
