@@ -13,7 +13,12 @@
   "textdomain": "draad-az",
   "editorScript": "file:./index.js",
   "editorStyle": "file:./index.css",
-  "style": "file:./style-index.css",
+  "style": [
+    "draad-style",
+    "draad-tabs-style",
+    "draad-toggle-styles",
+    "file:./style-index.css"
+  ],
   "render": "file:./render.php",
   "viewScript": [
     "jquery",

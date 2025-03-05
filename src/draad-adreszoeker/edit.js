@@ -6,6 +6,20 @@
 import { __ } from '@wordpress/i18n';
 
 /**
+ * Retrieve Wordpress components
+ * 
+ * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-components/
+ */
+import { Placeholder } from '@wordpress/components';
+
+/**
+ * Retrieve icons
+ * 
+ * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-icons/
+ */
+import { search } from '@wordpress/icons';
+
+/**
  * React hook that is used to mark the block wrapper element.
  * It provides all the necessary props like the class name.
  *
@@ -32,7 +46,7 @@ import './editor.scss';
 export default function Edit() {
 	return (
 		<div { ...useBlockProps() }>
-			{ __( 'Adreszoeker', 'draad-adreszoeker' ) }
+			<Placeholder icon={ search } label={ __( 'Adreszoeker', 'draad-az' ) } />
 		</div>
 	);
 }
