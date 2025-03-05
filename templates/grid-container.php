@@ -85,8 +85,8 @@ foreach ( $neighbourhoods as $neighbourhood ) :
 
                 if ( ! is_wp_error( $build_periods ) ) {
                     foreach ( $build_periods as $j => $year ) {
-                        $startYear = (int) get_field( 'start_year', 'build_period_' . $year->term_id );
-                        $endYear = (int) get_field( 'end_year', 'build_period_' . $year->term_id );
+                        $startYear = (int) get_field( 'start_year', 'draad_az_build_period_' . $year->term_id );
+                        $endYear = (int) get_field( 'end_year', 'draad_az_build_period_' . $year->term_id );
 
                         if ( ! $startYear || ! $endYear ) {
                             continue;
@@ -158,14 +158,14 @@ foreach ( $neighbourhoods as $neighbourhood ) :
                 echo ( get_field( 'address_title', 'draad_az' ) ) ? '<h3 id="maatregelen-voor-een-aardgasvrij-huis" class="draad-adreszoeker__result-advice-title">' . get_field( 'address_title', 'draad_az' ) . '</h3>' : '';
 
                 if ( $years && array_values( $years )[0] ) {
-                    echo ( array_values( $years )[0] ) ? '<p class="draad-adreszoeker__result-year-description">' . __( 'Informatie voor woningen uit', 'draad-az' ) . ' ' . array_values( $years )[0] . '</p>' : '';
+                    echo ( array_values( $years )[0] ) ? '<p class="draad-adreszoeker__result-year">' . __( 'Informatie voor woningen uit', 'draad-az' ) . ' ' . array_values( $years )[0] . '</p>' : '';
                 }
 
                 if ( $taxonomies && array_keys( $taxonomies )[0] ) {
                     $key = array_keys( $taxonomies )[0];
-                    $term = get_term( $key, 'build_period' );
+                    $term = get_term( $key, 'draad_az_build_period' );
 
-                    echo ( $term->description ) ? '<p class="result-content__content">'. $term->description .'</p>' : '';
+                    echo ( $term->description ) ? '<p class="draad-adreszoeker__result-year-content">'. $term->description .'</p>' : '';
                 }
 
                 $tabs = [
@@ -178,10 +178,10 @@ foreach ( $neighbourhoods as $neighbourhood ) :
                 ];
             ?>
 
-                <div role="tablist" aria-labelledby="tablist-1" class="tabs__tablist">
+                <div role="tablist" aria-labelledby="tablist-1" class="draad-tabs__tablist">
                 <?php foreach ( $tabs as $index => $tab ) : ?>
 
-                        <button class="tabs__tab" id="tab-<?= $index ?>" type="button" role="tab" aria-controls="tabpanel-<?= $index ?>">
+                        <button class="draad-tabs__tab" id="draad-tab-<?= $index ?>" type="button" role="tab" aria-controls="draad-tabpanel-<?= $index ?>">
                             <span class="focus"><?= $tab ?></span>
                         </button>
 
@@ -189,9 +189,10 @@ foreach ( $neighbourhoods as $neighbourhood ) :
                 </div>
 
             <?php
+                // Create for each tab a tabpanel
                 foreach ( $tabs as $index => $tab ) :
                     
-                    $period = [
+                    $advice_2_args = [
                         'post_type' => 'draad_az_text_2', // Adreszoeker advies 2
                         'posts_per_page' => -1,
                         'post_status' => 'publish',
@@ -206,7 +207,7 @@ foreach ( $neighbourhoods as $neighbourhood ) :
                         ],
                         'tax_query' => [
                             [
-                                'taxonomy' => 'build_period',
+                                'taxonomy' => 'draad_az_build_period',
                                 'field' => 'slug',
                                 'terms' => $taxonomies,
                                 'operator' => 'IN',
@@ -214,6 +215,35 @@ foreach ( $neighbourhoods as $neighbourhood ) :
                         ],
                     ];
 
+                    $advice_2 = get_posts( $advice_2_args );
+
+                    $tabGroup = get_field( $index, 'draad_az' ); // Get the tab group from the Adreszoeker advies 1 option page
+                    $icon = ( $tabGroup && $tabGroup['icon'] ) ? $tabGroup['icon'] : '';
+            ?>
+
+                    <div class="draad-tabs__tabpanel" id="draad-tabpanel-<?= $index ?>" role="tabpanel" aria-labelledby="draad-tab-<?= $index ?>">
+
+                        <div class="draad-tabs__tabpanel-heading">
+                            <h3 class="draad-tabs__tabpanel-title"><?= $icon . $tab ?></h3>
+                        </div>
+
+                    <?php 
+                        // TODO: De tekst laten inladen van de $tabGroup, dit moet op basis van de warmteoplossing en bouwperiode gebeuren
+                    ?>
+
+                        <div class="draad-tabs__tabpanel-grid">
+                        <?php
+                            if ( is_iterable( $advice_2 ) ) {
+                                foreach ( $advice_2 as $advice ) {
+                                   
+                                }
+                            }
+                        ?>
+                        </div>
+
+                    </div>
+
+            <?php
                 endforeach;
             ?>
             </div>
