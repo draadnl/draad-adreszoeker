@@ -89,11 +89,9 @@ if ( !class_exists( 'Draad_Adreszoeker' ) ) {
 
 			// Tabs
 			wp_register_script( 'draad-tabs-script', plugin_dir_url( __FILE__ ) . 'build/js/draad-tabs.js', [], $this->version, true );
-			wp_register_style( 'draad-tabs-style', plugin_dir_url( __FILE__ ) . 'build/css/style.css', [], $this->version );
 
 			// Toggle
-			wp_register_script( 'draad-toggle-script', plugin_dir_url( __FILE__ ) . 'build/js/draad-tabs.js', [], $this->version, true );
-			wp_register_style( 'draad-toggle-style', plugin_dir_url( __FILE__ ) . 'build/css/style.css', [], $this->version );
+			wp_register_script( 'draad-toggle-script', plugin_dir_url( __FILE__ ) . 'build/js/draad-toggle.js', [], $this->version, true );
 
 		}
 
@@ -145,10 +143,10 @@ if ( !class_exists( 'Draad_Adreszoeker' ) ) {
 			);
 
 			$neighbourhood = $wpdb->get_row( $query, ARRAY_A );
-
 			ob_start();
 			require_once DRAAD_ADRESZOEKER_DIR . 'templates/grid-container.php';
 			$output = ob_get_clean();
+
 			wp_send_json_success($output);
 
 			wp_send_json_success( __( 'Resultaten successvol opgehaald.', 'draad-az' ) );
