@@ -5,8 +5,8 @@
 ?>
 
 <div class="draad-adreszoeker">
-	<search class="draad-adreszoeker__filters filters">
-		<form action="post">
+	<form action="post">
+		<search class="draad-adreszoeker__filters">
 			<div class="draad-adreszoeker__filter --street">
 				<label for="street"><?php esc_attr_e('Straatnaam', 'draad-adreszoeker') ?></label>
 				<input list="street-list" id="street" name="street" placeholder="<?php esc_attr_e('Vul uw straatnaam in.', 'draad-adreszoeker') ?>" autocomplete="off" required>
@@ -18,9 +18,10 @@
 				<input type="number" id="huisnummer" name="huisnummer" placeholder="<?php esc_attr_e('Vul uw huisnummer in.', 'draad-adreszoeker') ?>" max="9999" disabled required>
 			</div>
 
-			<input type="hidden" name="action" value="draad_adreszoeker">
+			<input type="hidden" name="admin-ajax" value="<?= admin_url('admin-ajax.php'); ?>">
+			<input type="hidden" name="action" value="draad_adreszoeker_get_advice">
 			<input class="draad-adreszoeker__submit" type="submit" value="<?php esc_attr_e('Bekijk resultaat', 'draad-adreszoeker') ?>" />
-		</form>
-	</search>
-	<output id="results" class="draad-adreszoeker__content content"></output>
+		</search>
+		<output class="draad-adreszoeker__output"></output>
+	</form>
 </div> 

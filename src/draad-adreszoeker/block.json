@@ -15,5 +15,5 @@
 	"editorStyle": "file:./index.css",
 	"style": "file:./style-index.css",
 	"render": "file:./render.php",
-	"viewScript": ["jquery", "file:./view.js"]
+	"viewScript": ["jquery", "draad-tabs-script", "draad-toggle-script", "file:./view.js"]
 }

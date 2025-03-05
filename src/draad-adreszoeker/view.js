@@ -37,9 +37,10 @@
             this.streetInputNode = this.node.querySelector( '.draad-adreszoeker__filter.--street input' );
             this.streetSuggestionsNode = this.node.querySelector( '.draad-adreszoeker__filter.--street .draad-adreszoeker__suggestions');
             this.numberInputNode = this.node.querySelector( '.draad-adreszoeker__filter.--number input' );
-            this.filterFormNode = this.node.querySelector( '.draad-adreszoeker__filters > form' );
+            this.filterFormNode = this.node.querySelector( 'form' );
+            this.outputNode = this.node.querySelector( '.draad-adreszoeker__output' );
 
-            if ( !this.streetInputNode || !this.numberInputNode || !this.filterFormNode ) {
+            if ( !this.streetInputNode || !this.numberInputNode || !this.filterFormNode || !this.outputNode ) {
                 throw new Error("Draad_Adreszoeker is missing elements in the DOM.");
             }
 
@@ -55,6 +56,7 @@
         streetHandler = () => {            
             const streetInputValue = this.streetInputNode.value.trim();
 
+            // Remove old notices
             const notices = this.streetInputNode.parentNode.querySelectorAll( '.draad-adreszoeker__notice' );
             if ( notices.length >= 1 ) {
                 for ( const notice of notices ) {
@@ -73,28 +75,43 @@
                 noticeElement.className = 'draad-adreszoeker__notice';
                 noticeElement.textContent = 'Straatnaam moet minimaal 2 karakters bevatten.';
                 this.streetInputNode.parentNode.appendChild(noticeElement);
-                // $( this.streetInputNode.parentNode ).append('<span class="draad-adreszoeker__notice">Straatnaam moet minimaal 2 karakters bevatten.</span>');
             } else {
                 this.numberInputNode.disabled = false;
             }
 
             const formData = new FormData(this.filterFormNode);
             $.ajax({
-                url: '/wp-admin/admin-ajax.php',
+                url: formData.get( 'admin-ajax' ),
                 type: 'POST',
                 data: {
                     action: 'draad_adreszoeker_get_streets',
                     street: formData.get( 'street' ),
                 },
-                success: function (response) {
-                    console.log( response );
+                success: function (options) {
+                    console.log( options );
 
+                    // Clear suggestions
                     this.streetSuggestionsNode.innerHTML = '';
 
-                    // TODO: Add street suggestions
+                    if ( !options || options.length < 1 ) {
+                        // If there are no results add an empty option making that clear.
+                        const optionNode = new HTMLElement( 'option' );
+                        optionNode.value = '';
+                        optionNode.textContent = 'Geen resultaten gevonden';
+                        this.streetSuggestionsNode.appendChild(optionNode);
+                        return;
+                    }
+
+                    options?.forEach( option => {
+                        // Add an option for each street.
+                        const optionNode = new HTMLElement( 'option' );
+                        optionNode.value = option.street;
+                        optionNode.textContent = option.street;
+                        this.streetSuggestionsNode.appendChild(optionNode);
+                    } );
                 },
                 error: function (xhr, status, error) {
-                    console.log('Er gaat iets fout');
+                    throw new Error( error );
                 }
             });
 
@@ -105,20 +122,34 @@
 
             const formData = new FormData(this.filterFormNode);
             $.ajax({
-                url: '/wp-admin/admin-ajax.php',
+                url: formData.get( 'admin-ajax' ),
                 type: 'POST',
                 data: {
                     action: formData.get( 'action' ),
                     street: formData.get( 'street' ),
                     number: formData.get( 'number' ),
                 },
-                success: function (response) {
-                    console.log( response );
+                success: function (html) {
+                    console.log( html );
 
-                    // TODO: Get Results
+                    this.outputNode.innerHTML = html;
+
+                    this.addNotice( 'Het advies is geopend.' );
+
+                    const closeButtonNode = this.outputNode.querySelector( '.draad-adreszoeker__close-advice' );
+                    closeButtonNode?.addEventListener( 'click', event => {
+                        this.outputNode.innerHTML = '';
+                        this.streetInputNode.value = '';
+                        this.numberInputNode.value = '';
+                        this.addNotice( 'Het advies is gesloten' );
+                    } );
+
+                    // initializeTabs();
+                    // initializeToggles();
+                    // scrollToResult();
                 },
                 error: function (xhr, status, error) {
-                    console.log('Er gaat iets fout');
+                    throw new Error( error );
                 }
             });
         }
@@ -131,6 +162,24 @@
                     callback.apply(this, args);
                 }, wait);
             };
+        }
+
+        addNotice( message ) {
+            // Remove old notices
+            const notices = this.node.querySelectorAll( ':scope > .draad-adreszoeker__notice' );
+            if ( notices.length >= 1 ) {
+                for ( const notice of notices ) {
+                    notice.remove();
+                }
+            }
+
+            // Make new announcement that there is a new advice showing.
+            const noticeElement = document.createElement('span');
+            noticeElement.classList.add('draad-adreszoeker__notice');
+            noticeElement.classList.add('sr-only');
+            noticeElement.setAttribute('aria-live', 'polite');
+            noticeElement.textContent = message;
+            this.node.appendChild(noticeElement);
         }
     }
 

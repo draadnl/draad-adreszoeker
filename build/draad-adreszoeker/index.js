@@ -8,7 +8,7 @@
   \******************************************/
 /***/ ((module) => {
 
-module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"draad-adreszoeker/draad-adreszoeker","version":"1.0.0","title":"Draad Adreszoeker","category":"embed","icon":"smiley","example":{},"supports":{"html":false},"textdomain":"draad-adreszoeker","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","render":"file:./render.php","viewScript":["jquery","file:./view.js"]}');
+module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"draad-adreszoeker/draad-adreszoeker","version":"1.0.0","title":"Draad Adreszoeker","category":"embed","icon":"smiley","example":{},"supports":{"html":false},"textdomain":"draad-adreszoeker","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","render":"file:./render.php","viewScript":["jquery","draad-tabs-script","draad-toggle-script","file:./view.js"]}');
 
 /***/ }),
 
