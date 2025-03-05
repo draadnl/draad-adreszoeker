@@ -87,7 +87,7 @@
                     action: 'draad_adreszoeker_get_streets',
                     street: formData.get( 'street' ),
                 },
-                success: function (options) {
+                success: (options) => {
                     console.log( options );
 
                     // Clear suggestions
@@ -95,7 +95,7 @@
 
                     if ( !options || options.length < 1 ) {
                         // If there are no results add an empty option making that clear.
-                        const optionNode = new HTMLElement( 'option' );
+                        const optionNode = document.createElement( 'option' );
                         optionNode.value = '';
                         optionNode.textContent = 'Geen resultaten gevonden';
                         this.streetSuggestionsNode.appendChild(optionNode);
@@ -104,7 +104,7 @@
 
                     options?.forEach( option => {
                         // Add an option for each street.
-                        const optionNode = new HTMLElement( 'option' );
+                        const optionNode = document.createElement( 'option' );
                         optionNode.value = option.street;
                         optionNode.textContent = option.street;
                         this.streetSuggestionsNode.appendChild(optionNode);
@@ -127,12 +127,12 @@
                 data: {
                     action: formData.get( 'action' ),
                     street: formData.get( 'street' ),
-                    number: formData.get( 'number' ),
+                    number: formData.get( 'housenumber' ),
                 },
-                success: function (html) {
-                    console.log( html );
+                success: (response) => {
+                    console.log( response );
 
-                    this.outputNode.innerHTML = html;
+                    this.outputNode.innerHTML = response.data;
 
                     this.addNotice( 'Het advies is geopend.' );
 

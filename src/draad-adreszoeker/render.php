@@ -15,7 +15,7 @@
 	
 			<div class="draad-adreszoeker__filter --number">
 				<label for="huisnummer"><?php esc_attr_e('Huisnummer (zonder toevoeging)', 'draad-az') ?></label>
-				<input type="number" id="huisnummer" name="huisnummer" placeholder="<?php esc_attr_e('Vul uw huisnummer in.', 'draad-az') ?>" max="9999" disabled required>
+				<input type="number" id="huisnummer" name="housenumber" placeholder="<?php esc_attr_e('Vul uw huisnummer in.', 'draad-az') ?>" max="9999" disabled required>
 			</div>
 
 			<input type="hidden" name="admin-ajax" value="<?= admin_url('admin-ajax.php'); ?>">

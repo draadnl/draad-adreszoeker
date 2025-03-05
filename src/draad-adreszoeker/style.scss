@@ -6,6 +6,9 @@
  */
 
 .draad-adreszoeker {
+	container-name: adreszoeker;
+	container-type: inline-size;
+
 	*,
 	*::before,
 	*::after {
@@ -24,13 +27,18 @@
 	&__filters {
 		margin-bottom: 1em;
 		display: grid;
-		grid-template-columns: 1fr 1fr;
-		gap: 8px;
+		grid-template-columns: 1fr;
+		gap: 16px 8px;
 		width: 100%;
 		margin-top: 50px;
 
-		@media (max-width: 600px) {
-			grid-template-columns: 1fr;
+		@container adreszoeker (min-width: 680px) {
+			grid-template-columns: 1fr 1fr;
+		}
+
+		label {
+			display: block;
+			margin-block-end: 4px;
 		}
 
 		input[list],
@@ -39,7 +47,7 @@
 			background-color: #ffffff;
 			padding: 13px 20px;
 			color: #4b4b4b;
-			font-size: 15px;
+			font-size: 16px;
 			line-height: 1.73;
 			width: 100%;
 
@@ -82,12 +90,6 @@
 			}
 		}
 
-		input[type='number'] {
-			@media (max-width: 600px) {
-				margin-top: 30px;
-			}
-		}
-
 		input[type='number']:disabled {
 			background-color: #d2d2d2;
 		}
@@ -101,7 +103,7 @@
 
 			.fcomplete-result {
 				padding: 5px 16px;
-				font-size: 15px;
+				font-size: 16px;
 				line-height: 1.66;
 				color: #000;
 				transition: all 300ms ease;
