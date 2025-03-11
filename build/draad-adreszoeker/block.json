@@ -22,8 +22,6 @@
   "render": "file:./render.php",
   "viewScript": [
     "jquery",
-    "draad-tabs-script",
-    "draad-toggle-script",
     "file:./view.js"
   ]
 }

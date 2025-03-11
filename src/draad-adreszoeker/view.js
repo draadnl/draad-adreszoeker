@@ -19,11 +19,17 @@
  *
  * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-metadata/#view-script
  */
-
 `use strict`;
 
 (function () {
     var $ = $ || jQuery.noConflict();
+
+    document.addEventListener( 'DOMContentLoaded', function () {
+
+        const nodes = document.querySelectorAll( '.draad-adreszoeker' );
+        nodes?.forEach( node => new Draad_Adreszoeker( node ) );
+
+    });
 
     class Draad_Adreszoeker {
 
@@ -68,6 +74,7 @@
                 // Clear suggestions
                 this.streetSuggestionsNode.innerHTML = '';
 
+                this.streetInputNode.setAttribute( 'aria-invalid', 'true' );
                 this.numberInputNode.disabled = true;
 
                 // Add notice
@@ -76,6 +83,7 @@
                 noticeElement.textContent = 'Straatnaam moet minimaal 2 karakters bevatten.';
                 this.streetInputNode.parentNode.appendChild(noticeElement);
             } else {
+                this.streetInputNode.removeAttribute( 'aria-invalid' );
                 this.numberInputNode.disabled = false;
             }
 
@@ -87,28 +95,27 @@
                     action: 'draad_adreszoeker_get_streets',
                     street: formData.get( 'street' ),
                 },
-                success: (options) => {
-                    console.log( options );
-
+                success: (response) => {
+                    const options = response.data;
                     // Clear suggestions
                     this.streetSuggestionsNode.innerHTML = '';
 
-                    if ( !options || options.length < 1 ) {
+                    if ( !options || options.length <= 1 ) {
                         // If there are no results add an empty option making that clear.
                         const optionNode = document.createElement( 'option' );
                         optionNode.value = '';
                         optionNode.textContent = 'Geen resultaten gevonden';
                         this.streetSuggestionsNode.appendChild(optionNode);
                         return;
+                    } else if ( typeof options === 'object' ) {              
+                        options?.forEach( option => {
+                            // Add an option for each street.
+                            const optionNode = document.createElement( 'option' );
+                            optionNode.value = option.street;
+                            optionNode.textContent = option.street;
+                            this.streetSuggestionsNode.appendChild(optionNode);
+                        } );
                     }
-
-                    options?.forEach( option => {
-                        // Add an option for each street.
-                        const optionNode = document.createElement( 'option' );
-                        optionNode.value = option.street;
-                        optionNode.textContent = option.street;
-                        this.streetSuggestionsNode.appendChild(optionNode);
-                    } );
                 },
                 error: function (xhr, status, error) {
                     throw new Error( error );
@@ -130,8 +137,6 @@
                     number: formData.get( 'housenumber' ),
                 },
                 success: (response) => {
-                    console.log( response );
-
                     this.outputNode.innerHTML = response.data;
 
                     this.addNotice( 'Het advies is geopend.' );
@@ -143,6 +148,8 @@
                         this.numberInputNode.value = '';
                         this.addNotice( 'Het advies is gesloten' );
                     } );
+
+                    this.outputNode.querySelectorAll(".draad-tabs__tablist")?.forEach((tablist) => new Draad_Tabs(tablist));
 
                     // initializeTabs();
                     // initializeToggles();
@@ -183,10 +190,149 @@
         }
     }
 
-    document.addEventListener( 'DOMContentLoaded', function () {
+    class Draad_Tabs {
+        /**
+         * Constructor
+         *
+         * @param {HTMLElement} groupNode The HTML element tat contains the tabs.
+         */
+        constructor(groupNode) {
+            if (!groupNode) {
+                throw new Error("Draad Tabs: No tablist node provided.");
+            }
 
-        const nodes = document.querySelectorAll( '.draad-adreszoeker' );
-        nodes?.forEach( node => new Draad_Adreszoeker( node ) );
+            this.tablistNode = groupNode;
+            this.tabs = Array.from(this.tablistNode.querySelectorAll("[role=tab]"));
+            this.tabPanels = this.tabs?.map((tab) =>
+                document.getElementById(tab.getAttribute("aria-controls")),
+            );
+            this.firstTab = this.tabs[0] || null;
+            this.lastTab = this.tabs[this.tabs.length - 1] || null;
 
-    });
+            this.tabs?.forEach((tab) => {
+                tab.setAttribute("aria-selected", "false");
+                tab.addEventListener("keydown", this.onKeydown.bind(this));
+                tab.addEventListener("click", this.onClick.bind(this));
+            });
+
+            this.setSelectedTab(this.firstTab);
+        }
+
+        /**
+         * Set the selected tab.
+         *
+         * @param {HTMLElement} currentTab the current tab element.
+         */
+        setSelectedTab(currentTab) {
+            this.tabs?.forEach((tab, i) => {
+                const isSelected = tab === currentTab;
+                tab.setAttribute("aria-selected", isSelected);
+                this.tabPanels[i].hidden = !isSelected;
+            });
+        }
+
+        /**
+         * Move focus to a tab.
+         *
+         * @param {HTMLElement} currentTab The current tab element.
+         */
+        moveFocusToTab(currentTab) {
+            currentTab.focus();
+        }
+
+        /**
+         * Moves the focus to the adjacent tab based on teh spcified direction.
+         *
+         * @param {HTMLElement} currentTab The current tab element.
+         * @param {number} direction -	The direction to move the focus.
+         * 								-1: Move to the previous tab.
+         * 								1: Move to the next tab.
+         */
+        moveFocusToAdjacentTab(currentTab, direction) {
+            let index = this.tabs.indexOf(currentTab);
+            index = (index + direction + this.tabs.length) % this.tabs.length;
+            this.moveFocusToTab(this.tabs[index]);
+        }
+
+        /**
+         * onKeyDown event handler for tabs.
+         *
+         * @param {object} event The keyboard event object.
+         */
+        onKeydown(event) {
+            const tgt = event.currentTarget;
+            let stopPropagation = false;
+
+            switch (event.key) {
+                case "ArrowLeft":
+                    this.moveFocusToAdjacentTab(tgt, -1);
+                    stopPropagation = true;
+                    break;
+                case "ArrowRight":
+                    this.moveFocusToAdjacentTab(tgt, 1);
+                    stopPropagation = true;
+                    break;
+                case "Home":
+                    this.moveFocusToTab(this.firstTab);
+                    stopPropagation = true;
+                    break;
+                case "End":
+                    this.moveFocusToTab(this.lastTab);
+                    stopPropagation = true;
+                    break;
+            }
+
+            if (stopPropagation) {
+                event.stopPropagation();
+            }
+        }
+
+        /**
+         * onClick event handler for tabs.
+         *
+         * @param {object} event The click event object.
+         */
+        onClick(event) {
+            this.setSelectedTab(event.currentTarget);
+        }
+    }
+
+    class Draad_Toggle {
+
+        constructor(domNode) {
+
+            this.toggle = domNode;
+            this.target = document.getElementById(this.toggle.getAttribute('aria-controls'));
+
+            this.toggle.addEventListener('click', this.toggleTarget());
+
+        }
+
+        toggleTarget() {
+
+            const open = new CustomEvent('DraadToggleOpen');
+            const close = new CustomEvent('DraadToggleClose');
+
+            const expanded = this.toggle.getAttribute('aria-expanded') === 'true';
+
+            if (expanded) {
+                this.toggle.setAttribute('aria-expanded', 'false');
+                this.target.setAttribute('aria-hidden', 'true');
+                this.target.setAttribute('hidden', 'hidden');
+                this.toggle.focus();
+
+                this.toggle.dispatchEvent(close);
+            } else {
+                this.toggle.setAttribute('aria-expanded', 'true');
+                this.target.setAttribute('aria-hidden', 'false');
+                this.target.removeAttribute('hidden');
+                this.target.focus();
+
+                this.toggle.dispatchEvent(open);
+            }
+
+        }
+
+    }
+
 })();

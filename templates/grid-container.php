@@ -46,7 +46,7 @@ foreach ( $neighbourhoods as $neighbourhood ) :
             echo ( $neighbourhood->post_title ) ? '<li class="draad-adreszoeker__result-list-item"><strong>' . __( 'Uw buurt', 'draad-az' ) . ': </strong> ' . $neighbourhood->post_title . '</li>' : '';
             echo ( $bouwjaar ) ? '<li class="draad-adreszoeker__result-list-item"><strong>' . __( 'Bouwjaar woning', 'draad-az' ) . ': </strong> ' . $bouwjaar . '</li>' : '';
             echo ( $heatSolutionLabel ) ? '<li class="draad-adreszoeker__result-list-item"><strong>' . __( 'Aardgasvrije oplossing voor uw buurt', 'draad-az' ) . ': </strong> ' . ( $heatSolutionLabel === 'Hybride warmtepomp' ? __( 'Hybride warmtepomp (tijdelijk)', 'draad-az' ) : $heatSolutionLabel ) . '</li>' : '';
-            echo ( $energieLabel ) ? '<li class="draad-adreszoeker__result-list-item"><strong>' . __( 'Energielabel', 'draad-az' ) . ': </strong> ' . $energieLabel . '</li>' : '';
+            echo ( $energielabel ) ? '<li class="draad-adreszoeker__result-list-item"><strong>' . __( 'Energielabel', 'draad-az' ) . ': </strong> ' . $energielabel . '</li>' : '';
         ?>
     </ul>
 
@@ -228,41 +228,113 @@ foreach ( $neighbourhoods as $neighbourhood ) :
                         </div>
 
                     <?php 
-                        // TODO: De tekst laten inladen van de $tabGroup, dit moet op basis van de warmteoplossing en bouwperiode gebeuren
+                        if ( is_iterable( $tabGroup['repeater'] ) ) {
+                            foreach ( $tabGroup['repeater'] as $repeater ) {
+
+                                $heatSolutionKey = ( $heatSolution ) ? $heatSolution['value'] : '';
+                                $heatSolutionFiltered = ( $heatSolutionKey ) ? $heatSolutionKey : '';
+
+                                // get the keys of the taxonomies
+                                $periodOutOfTaxonomies = null;
+                                if ( $taxonomies && array_keys( $taxonomies )[0] ) {
+                                    $periodOutOfTaxonomies = array_keys( $taxonomies )[0];
+                                }
+
+                                // everything out of the repeater
+                                $heatSolutionDropdownRepeater = $repeater['heat_solution_dropdown'];
+                                if ( !$heatSolutionDropdownRepeater ) {
+                                    continue;
+                                }
+
+                                $heatSolutionKeyNew = '';
+                                foreach ( $heatSolutionDropdownRepeater as $key => $value ) {
+                                    if ( $value === $heatSolutionFiltered ) {
+                                        $heatSolutionKeyNew = $value;
+                                    }
+                                }
+
+                                $periodRepeaterArray = $repeater['period'];
+                                foreach ( $periodRepeaterArray as $key => $value ) {
+
+                                    if ( $value === $periodOutOfTaxonomies ) {
+                                        $periodRepeater = $value;
+                                    }
+                                }
+
+                                $content = $repeater['content'];
+
+                                if ( $heatSolutionKeyNew === $heatSolutionFiltered && $periodOutOfTaxonomies === $periodRepeater && $content ) {
+                                    echo '<div class="draad-tabs__intro">'. $content .'</div>';
+                                }
+
+                            }
+                        }
+
+                        if ( is_iterable( $advice_2 ) && !empty( $advice_2 ) ) :
                     ?>
 
                         <div class="draad-tabs__tabpanel-grid">
-                        <?php
-                            // TODO: De Adreszpeler advies 2 tegels terug laten komen, in de card checken of de warmteoplossing overeenkomt 
-                            if ( is_iterable( $advice_2 ) ) {
-                                foreach ( $advice_2 as $advice ) {
-                                    $advice = $advice->ID;
+                            <div class="draad-tabs__quicklinks">
+                                <h3 class="draad-tabs__quicklinks-title"><?= __( 'Ga naar:', 'draad-az' ) ?></h3>
 
-                                    include 'card.php';
-                                   
+                                <?php 
+                                    foreach ( $advice_2 as $page ) {
+                                        $id = $page->ID;
+
+                                        $heatSolutionKey = ( $heatSolution ) ? $heatSolution['value'] : '';
+                                        $heatSolutionFiltered = ( $heatSolutionKey ) ? $heatSolutionKey : '';
+                                        $heatSolutionDropdown = get_field( 'heat_solution_dropdown', $id );
+
+                                        if ( !$heatSolutionDropdown ) {
+                                            continue;
+                                        }
+
+                                        foreach ( $heatSolutionDropdown as $key => $value ) {
+                                            $filteredKey = $value['value'];
+                                            if ( $heatSolutionFiltered === $filteredKey ) {
+                                                global $periodCount;
+                                                $periodCount = $periodCount + 1;
+
+                                                $cardID = ( get_the_title( $id ) ) ? strtolower( str_replace( ' ', '-', get_the_title( $id ) ) ) : '';
+                                                echo '<a href="#'. $cardID .'" class="draad-tabs__quicklink"><i class="far fa-chevron-right"></i>'. get_the_title( $id ) .'</a>';
+                                            }
+                                        }
+                                    }
+                                ?>
+                            </div>
+
+                            <?php
+                                global $periodCount;
+                                echo '<span class="draad-tabs__quicklinks-total --'. $periodCount .'"></span>';
+                           
+                                if ( is_iterable( $advice_2 ) ) {
+                                    foreach ( $advice_2 as $advice ) {
+                                        $advice = $advice->ID;
+
+                                        include 'card.php';
+                                    
+                                    }
                                 }
-                            }
-                        ?>
+                            ?>
+
                         </div>
 
+                    <?php endif; ?>
                     </div>
 
-            <?php
-                endforeach;
-            ?>
+            <?php endforeach; ?>
             </div>
 
-    <?php
-
-        endif;
-
-    ?>
+    <?php endif; ?>
     </div>
+
+
+
+    <button class="draad-adreszoeker__close-advice button close-button result-close">
+        <span class="sr-only"><?= __( 'Resultaat sluiten' ) ?></span>
+        <span class="icon cross fa-solid fa-xmark"></span>
+    </button>
 
 </article>
 
-<?php
-
-endforeach;
-
-?>
+<?php endforeach; ?>

@@ -88,10 +88,10 @@ if ( !class_exists( 'Draad_Adreszoeker' ) ) {
 		public function register_assets() {
 
 			// Tabs
-			wp_register_script( 'draad-tabs-script', plugin_dir_url( __FILE__ ) . 'build/js/draad-tabs.js', [], $this->version, true );
+			wp_register_script( 'draad-tabs-script', plugin_dir_url( __FILE__ ) . 'build/js/tabs.js', [], $this->version, true );
 
 			// Toggle
-			wp_register_script( 'draad-toggle-script', plugin_dir_url( __FILE__ ) . 'build/js/draad-toggle.js', [], $this->version, true );
+			wp_register_script( 'draad-toggle-script', plugin_dir_url( __FILE__ ) . 'build/js/toggle.js', [], $this->version, true );
 
 		}
 
@@ -113,7 +113,7 @@ if ( !class_exists( 'Draad_Adreszoeker' ) ) {
 
 			$results = $wpdb->get_results( $query, ARRAY_A );
 
-			wp_send_json($results ?: []);
+			wp_send_json_success($results ?: []);
 
 			wp_send_json_success( __( 'Mooie lijst met straten.', 'draad-az' ) );
 
