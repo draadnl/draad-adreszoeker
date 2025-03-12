@@ -29,13 +29,9 @@ foreach ( $neighbourhoods as $neighbourhood ) :
     $heatSolution = get_field( 'heat_solution_dropdown', $neighbourhoodID );
     $heatSolutionKey = ( $heatSolution ) ? $heatSolution['value'] : '';
     $heatSolutionLabel = ( $heatSolution ) ? $heatSolution['label'] : '';
-
-    $heatSolutions = get_field( 'heat_solutions', 'option' );
-    $anchor = ( $neighbourhood->post_title ) ? 'id="'. strtolower( str_replace( ' ', '-', $neighbourhood->post_title ) ) .'"' : '';
-
 ?>
 
-<article class="draad-adreszoeker__result" <?= $anchor ?>>
+<article class="draad-adreszoeker__result">
     
     <div class="draad-adreszoeker__result-heading">
         <h2 class="draad-adreszoeker__result-title"><?= esc_html( $neighbourhood->post_title ); ?></h>
@@ -103,59 +99,63 @@ foreach ( $neighbourhoods as $neighbourhood ) :
                 }
             }
 
-        $content = get_field('text', $base_ID);
-        if ( $content ) :
-            preg_match_all( "/(<h([1-3])(.*?))>(.*?)<\/h[1-3]>/", $content, $matches, PREG_SET_ORDER );
+            $content = get_field('text', $base_ID);
+            $adreszoekerAddressTitle = get_field( 'address_title', 'draad_az' );
+            $adreszoekerAddressTitleSanitize = ( $adreszoekerAddressTitle ) ? sanitize_title( $adreszoekerAddressTitle ) : '';
+            if ( $content ) :
+                preg_match_all( "/(<h([1-3])(.*?))>(.*?)<\/h[1-3]>/", $content, $matches, PREG_SET_ORDER );
 
-            $anchors = [];
-            
-            foreach ( $matches as $match ) {
-                $title = strip_tags( $match[4] );
-                $anchor = sanitize_title( $title );
-                $new_heading = '<h' . $match[2] . ' id="' . $anchor . '"' . $match[3] . '>' . $match[4] . '</h' . $match[2] . '>';
-                $content = str_replace( $match[0], $new_heading, $content );
+                $anchors = [];
+                
+                foreach ( $matches as $match ) {
+                    $title = strip_tags( $match[4] );
+                    $anchor = sanitize_title( $title );
+                    $new_heading = '<h' . $match[2] . ' id="' . $anchor . '"' . $match[3] . '>' . $match[4] . '</h' . $match[2] . '>';
+                    $content = str_replace( $match[0], $new_heading, $content );
 
-                $anchors[] = [
-                    'anchor' => '#' . $anchor,
-                    'title'  => $title,
-                ];
-            }
+                    $anchors[] = [
+                        'anchor' => '#' . $anchor,
+                        'title'  => $title,
+                    ];
+                }
 
-            if ( ! empty( $anchors ) ) :
+                if ( ! empty( $anchors ) ) :
     ?>
 
-                <aside class="draad-adreszoeker__result-sidebar">
-                    <div class="draad-adreszoeker__result-toc">
+                    <aside class="draad-adreszoeker__result-sidebar">
+                        <div class="draad-adreszoeker__result-toc">
 
-                        <h2 class="draad-adreszoeker__result-toc-title"><?= __( 'Direct naar', 'draad-az' ) ?></h2>
+                            <h2 class="draad-adreszoeker__result-toc-title"><?= __( 'Direct naar', 'draad-az' ) ?></h2>
 
-                        <ul class="draad-adreszoeker__result-toc-list">
+                            <ul class="draad-adreszoeker__result-toc-list">
 
-                            <?php foreach ( $anchors as $anchor ) : ?>
+                                <?php foreach ( $anchors as $anchor ) : ?>
+                                    <li class="draad-adreszoeker__result-toc-item">
+                                        <a href="<?= $anchor['anchor'] ?>"><?= $anchor['title'] ?><i class="far fa-long-arrow-down"></i></a>
+                                    </li>
+                                <?php endforeach; ?>
+                                
                                 <li class="draad-adreszoeker__result-toc-item">
-                                    <a href="<?= $anchor['anchor'] ?>"><?= $anchor['title'] ?><i class="far fa-long-arrow-down"></i></a>
+                                    <a href="#<?= $adreszoekerAddressTitleSanitize ?>"><?= $adreszoekerAddressTitle ?><i class="far fa-long-arrow-down"></i></a>
                                 </li>
-                            <?php endforeach; ?>
-                            
-                            <li class="draad-adreszoeker__result-toc-item">
-                                <a href="#maatregelen-voor-een-aardgasvrij-huis"><?= __('Zo maakt u uw huis aardgasvrij', 'draad-az') ?><i class="far fa-long-arrow-down"></i></a>
-                            </li>
 
-                        </ul>
-                    </div>
-                </aside>
+                            </ul>
+                        </div>
+                    </aside>
 
     <?php
+                endif;
+
+                echo '<div class="draad-adreszoeker__result-base">' . $content . '</div>';
+
             endif;
-
-            echo '<div class="draad-adreszoeker__result-base">' . $content . '</div>';
-
-        endif;
     ?>
 
             <div class="draad-adreszoeker__result-advice">
             <?php
-                echo ( get_field( 'address_title', 'draad_az' ) ) ? '<h3 id="maatregelen-voor-een-aardgasvrij-huis" class="draad-adreszoeker__result-advice-title">' . get_field( 'address_title', 'draad_az' ) . '</h3>' : '';
+                if ( $adreszoekerAddressTitle ) {
+                    echo '<h3 id="' . $adreszoekerAddressTitleSanitize . '" class="draad-adreszoeker__result-advice-title">' . $adreszoekerAddressTitle . '</h3>';
+                }
 
                 if ( $years && array_values( $years )[0] ) {
                     echo ( array_values( $years )[0] ) ? '<p class="draad-adreszoeker__result-year">' . __( 'Informatie voor woningen uit', 'draad-az' ) . ' ' . array_values( $years )[0] . '</p>' : '';
@@ -189,7 +189,6 @@ foreach ( $neighbourhoods as $neighbourhood ) :
                 </div>
 
             <?php
-                // TODO: De Adreszpeler advies 2 tegels terug laten komen
                 foreach ( $tabs as $index => $tab ) :
                     
                     $advice_2_args = [
@@ -228,54 +227,28 @@ foreach ( $neighbourhoods as $neighbourhood ) :
                         </div>
 
                     <?php 
-                        if ( is_iterable( $tabGroup['repeater'] ) ) {
-                            foreach ( $tabGroup['repeater'] as $repeater ) {
+                        if ( is_iterable( $tabGroup[ 'repeater' ] ) ) {
+                            foreach ( $tabGroup[ 'repeater' ] as $repeater ) {
 
-                                $heatSolutionKey = ( $heatSolution ) ? $heatSolution['value'] : '';
-                                $heatSolutionFiltered = ( $heatSolutionKey ) ? $heatSolutionKey : '';
+                                $periodOutOfTaxonomies = $taxonomies ? array_key_first( $taxonomies ) : null;
 
-                                // get the keys of the taxonomies
-                                $periodOutOfTaxonomies = null;
-                                if ( $taxonomies && array_keys( $taxonomies )[0] ) {
-                                    $periodOutOfTaxonomies = array_keys( $taxonomies )[0];
-                                }
-
-                                // everything out of the repeater
-                                $heatSolutionDropdownRepeater = $repeater['heat_solution_dropdown'];
-                                if ( !$heatSolutionDropdownRepeater ) {
+                                if ( ! $repeater[ 'heat_solution_dropdown' ] && ! $repeater[ 'period' ] && ! $repeater[ 'content' ] ) {
                                     continue;
                                 }
-
-                                $heatSolutionKeyNew = '';
-                                foreach ( $heatSolutionDropdownRepeater as $key => $value ) {
-                                    if ( $value === $heatSolutionFiltered ) {
-                                        $heatSolutionKeyNew = $value;
-                                    }
+                        
+                                if ( in_array( $heatSolutionKey, $repeater[ 'heat_solution_dropdown' ], true ) &&
+                                    in_array( $periodOutOfTaxonomies, $repeater[ 'period' ], true ) ) {
+                                    echo '<div class="draad-tabs__intro">' . $repeater[ 'content' ] . '</div>';
                                 }
-
-                                $periodRepeaterArray = $repeater['period'];
-                                foreach ( $periodRepeaterArray as $key => $value ) {
-
-                                    if ( $value === $periodOutOfTaxonomies ) {
-                                        $periodRepeater = $value;
-                                    }
-                                }
-
-                                $content = $repeater['content'];
-
-                                if ( $heatSolutionKeyNew === $heatSolutionFiltered && $periodOutOfTaxonomies === $periodRepeater && $content ) {
-                                    echo '<div class="draad-tabs__intro">'. $content .'</div>';
-                                }
-
                             }
-                        }
+                        }                        
 
-                        if ( is_iterable( $advice_2 ) && !empty( $advice_2 ) ) :
+                        if ( is_iterable( $advice_2 ) && ! empty( $advice_2 ) ) :
                     ?>
 
-                        <div class="draad-tabs__tabpanel-grid">
-                            <div class="draad-tabs__quicklinks">
-                                <h3 class="draad-tabs__quicklinks-title"><?= __( 'Ga naar:', 'draad-az' ) ?></h3>
+                            <div class="draad-tabs__tabpanel-grid">
+                                <div class="draad-tabs__quicklinks">
+                                    <h3 class="draad-tabs__quicklinks-title"><?= __( 'Ga naar:', 'draad-az' ) ?></h3>
 
                                 <?php 
                                     foreach ( $advice_2 as $page ) {
@@ -285,7 +258,7 @@ foreach ( $neighbourhoods as $neighbourhood ) :
                                         $heatSolutionFiltered = ( $heatSolutionKey ) ? $heatSolutionKey : '';
                                         $heatSolutionDropdown = get_field( 'heat_solution_dropdown', $id );
 
-                                        if ( !$heatSolutionDropdown ) {
+                                        if ( ! $heatSolutionDropdown ) {
                                             continue;
                                         }
 
@@ -301,12 +274,12 @@ foreach ( $neighbourhoods as $neighbourhood ) :
                                         }
                                     }
                                 ?>
-                            </div>
+                                </div>
 
                             <?php
                                 global $periodCount;
                                 echo '<span class="draad-tabs__quicklinks-total --'. $periodCount .'"></span>';
-                           
+                            
                                 if ( is_iterable( $advice_2 ) ) {
                                     foreach ( $advice_2 as $advice ) {
                                         $advice = $advice->ID;
@@ -316,8 +289,7 @@ foreach ( $neighbourhoods as $neighbourhood ) :
                                     }
                                 }
                             ?>
-
-                        </div>
+                            </div>
 
                     <?php endif; ?>
                     </div>
@@ -328,10 +300,8 @@ foreach ( $neighbourhoods as $neighbourhood ) :
     <?php endif; ?>
     </div>
 
-
-
     <button class="draad-adreszoeker__close-advice button close-button result-close">
-        <span class="sr-only"><?= __( 'Resultaat sluiten' ) ?></span>
+        <span class="sr-only"><?= __( 'Resultaat sluiten', 'draad-az' ) ?></span>
         <span class="icon cross fa-solid fa-xmark"></span>
     </button>
 
