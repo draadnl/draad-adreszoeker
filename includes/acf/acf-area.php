@@ -34,9 +34,9 @@ acf_add_local_field_group( [
             'append' => '',
         ],
         [
-            'key' => 'field_draad_az_text_number_v3_area',
+            'key' => 'field_draad_az_text_number_area',
             'label' => __( 'Tekstnummer', 'draad-az' ),
-            'name' => 'text_number_v3',
+            'name' => 'text_number',
             'aria-label' => '',
             'type' => 'number',
             'instructions' => '',

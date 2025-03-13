@@ -65,7 +65,7 @@ acf_add_local_field_group(  [
             'return_format' => 'array',
         ],
         [
-            'key' => 'field_draad_az_text_number_main_v3_tab_base',
+            'key' => 'field_draad_az_text_number_main_tab_base',
             'label' => __( 'Tekstnummer', 'draad-az' ),
             'name' => '',
             'aria-label' => '',
@@ -82,9 +82,9 @@ acf_add_local_field_group(  [
             'endpoint' => 0,
         ],
         [
-            'key' => 'field_draad_az_text_number_main_v3_base',
+            'key' => 'field_draad_az_text_number_main_base',
             'label' => __( 'Tekstnummer', 'draad-az' ),
-            'name' => 'text_number_main_v3',
+            'name' => 'text_number_main',
             'aria-label' => '',
             'type' => 'number',
             'instructions' => '',

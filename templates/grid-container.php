@@ -48,7 +48,7 @@ foreach ( $neighbourhoods as $neighbourhood ) :
 
     <div class="draad-adreszoeker__result-content">
     <?php
-        $textNumber = ( get_field( 'text_number_v3', $neighbourhoodID ) ) ? get_field( 'text_number_v3', $neighbourhoodID ) : 0;
+        $textNumber = ( get_field( 'text_number', $neighbourhoodID ) ) ? get_field( 'text_number', $neighbourhoodID ) : 0;
 
         $base = get_posts( [
             'post_type' => 'draad_az_text', // Adreszoeker basis
@@ -56,7 +56,7 @@ foreach ( $neighbourhoods as $neighbourhood ) :
             'post_status' => 'publish',
             'meta_query' => [
                 [
-                    'key' => 'text_number_main_v3',
+                    'key' => 'text_number_main',
                     'value' => $textNumber,
                     'compare' => '='
                 ]
@@ -68,7 +68,7 @@ foreach ( $neighbourhoods as $neighbourhood ) :
             
             $base = $base[0];
             $base_ID = $base->ID;
-            $base_text = get_field( 'text_number_main_v3', $base_ID );
+            $base_text = get_field( 'text_number_main', $base_ID );
 
             if ( $base_text ) {
 
