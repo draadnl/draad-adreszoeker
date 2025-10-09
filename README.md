@@ -18,6 +18,7 @@ Markdown parsed.
 
 ### 2.0.0
 
+- Added import page for the addresses database table under Tools
 - Added new Gutenberg block for the adreszoeker form using the The hague design system
 - Added new Gutenberg block for the adreszoeker output using the The hague design system
 
