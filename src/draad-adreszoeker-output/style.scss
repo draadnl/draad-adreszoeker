@@ -1,0 +1,125 @@
+@use '../public/draad-adreszoeker-shared.scss';
+
+.block-editor-block-list__block.wp-block-draadnl-draad-adreszoeker-output,
+.wp-block-draadnl-draad-adreszoeker-output {
+	position: relative;
+	isolation: isolate;
+	background-color: var(--utrecht-document-background-color, inherit);
+
+	.draad-adreszoeker__banner {
+		inline-size: 100%;
+		object-fit: cover;
+		position: relative;
+		z-index: -1;
+	}
+
+	.utrecht-document {
+		background: none;
+	}
+
+	.denhaag-responsive-content {
+		margin-block-start: -17rem;
+
+		@media (width >= 1024px) {
+			--denhaag-responsive-content-max-width: var(--denhaag-responsive-content-sm-max-width);
+		}
+		@media (width >= 1280px) {
+			--denhaag-responsive-content-max-width: var(--denhaag-responsive-content-md-max-width);
+		}
+	}
+
+	.draad-adreszoeker__form {
+		background-color: var(--utrecht-document-background-color, inherit);
+
+		> div {
+			container: draad_adreszoeker_form / inline-size;
+		}
+
+		form {
+			// inline-size: MIN(100%, 30.6875rem);
+			display: grid;
+			grid-template-columns: 1fr;
+			align-items: center;
+			justify-items: start;
+
+			@container draad_adreszoeker_form (min-width: 350px) {
+				grid-template-columns: minmax(224px, 2fr) minmax(122px, 1fr);
+			}
+
+			@container draad_adreszoeker_form (min-width: 485px) {
+				grid-template-columns: minmax(224px, 3fr) minmax(122px, 1fr) minmax(122px, 2fr);
+			}
+		}
+
+		.utrecht-form-field {
+			grid-row: span 3;
+			display: grid;
+			gap: 0;
+
+			&.--street {
+				inline-size: 100%;
+				grid-template-columns: subgrid;
+				grid-template-rows: subgrid;
+			}
+
+			&.--housenumber {
+				max-inline-size: 122px;
+				justify-self: start;
+
+				@container draad_adreszoeker_form ( min-width: 350px ) {
+					grid-template-columns: subgrid;
+					grid-template-rows: subgrid;
+				}
+			}
+
+			label {
+				grid-row: 1;
+				inline-size: 100%;
+			}
+
+			.utrecht-form-field__input {
+				inline-size: 100%;
+				grid-row: 2 / 4;
+				display: grid;
+				grid-template-columns: 1fr;
+				grid-template-rows: subgrid;
+
+				input {
+					grid-row: 1;
+					block-size: 51px;
+					line-height: 1;
+				}
+			}
+		}
+
+		.denhaag-button {
+			min-inline-size: fit-content;
+			inline-size: 100%;
+
+			@container draad_adreszoeker_form (min-width: 350px) {
+				inline-size: 120px;
+			}
+
+			@container draad_adreszoeker_form (min-width: 485px) {
+				grid-row: 2;
+				grid-column: 3;
+				inline-size: 100%;
+			}
+		}
+	}
+
+	.draad-adreszoeker__output {
+		margin-top: 1rem;
+		min-height: 2rem;
+
+		&:empty::before {
+			content: '';
+			display: block;
+		}
+	}
+
+	.draad-adreszoeker__notice {
+		display: block;
+		font-size: 0.875rem;
+	}
+}

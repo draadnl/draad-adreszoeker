@@ -45,18 +45,18 @@
 	container-name: adreszoeker;
 	container-type: inline-size;
 
-	*,
-	*::before,
-	*::after {
-		box-sizing: border-box;
-	}
-
 	// Typography
 	color: var(--draad-az-body-color, #494949);
 	font-family: var(--draad-az-body-font-family, 'TheSans');
 	font-size: var(--draad-az-base-font-size, 1.125rem);
 	line-height: var(--draad-az-base-line-height, 1.5);
 	font-weight: var(--draad-az-body-font-weight, 400);
+
+	*,
+	*::before,
+	*::after {
+		box-sizing: border-box;
+	}
 
 	h2 {
 		color: var(--draad-az-heading-color, #2d2d2d);

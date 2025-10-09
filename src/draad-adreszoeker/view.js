@@ -21,6 +21,16 @@
  */
 `use strict`;
 
+function debounce( callback, wait ) {
+    let timeout;
+    return (...args) => {
+        clearTimeout(timeout);
+        timeout = setTimeout(function () {
+            callback.apply(this, args);
+        }, wait);
+    };
+}
+
 (function () {
     var $ = $ || jQuery.noConflict();
 
@@ -55,7 +65,7 @@
         }
 
         eventBinder() {
-            this.streetInputNode.addEventListener( 'input', this.debounce( this.streetHandler, 500 ) );
+            this.streetInputNode.addEventListener( 'input', debounce( this.streetHandler, 500 ) );
             this.filterFormNode.addEventListener( 'submit', this.handleSubmition.bind( this ) );
         }
 
@@ -81,6 +91,7 @@
                 const noticeElement = document.createElement('span');
                 noticeElement.className = 'draad-adreszoeker__notice';
                 noticeElement.textContent = 'Straatnaam moet minimaal 2 karakters bevatten.';
+                noticeElement.setAttribute( 'role', 'alert' );
                 this.streetInputNode.parentNode.appendChild(noticeElement);
             } else {
                 this.streetInputNode.removeAttribute( 'aria-invalid' );
@@ -159,16 +170,6 @@
                     throw new Error( error );
                 }
             });
-        }
-
-        debounce( callback, wait ) {
-            let timeout;
-            return (...args) => {
-                clearTimeout(timeout);
-                timeout = setTimeout(function () {
-                    callback.apply(this, args);
-                }, wait);
-            };
         }
 
         addNotice( message ) {

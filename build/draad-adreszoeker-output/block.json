@@ -1,0 +1,46 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "draadnl/draad-adreszoeker-output",
+  "version": "1.0.0",
+  "title": "Adreszoeker Resultaat",
+  "category": "embed",
+  "icon": "smiley",
+  "description": "Adreszoeker blok voor het tonen van de adviezen.",
+  "attributes": {
+    "heading": {
+      "type": "string",
+      "source": "text",
+      "selector": "h1",
+      "default": "Advies voor jouw woning"
+    },
+    "button": {
+      "type": "string",
+      "source": "text",
+      "selector": "button",
+      "default": "Vind woning"
+    },
+    "image": {
+      "type": "object",
+      "default": {
+        "url": "",
+        "alt": "",
+        "id": null
+      }
+    }
+  },
+  "example": {},
+  "supports": {
+    "html": false
+  },
+  "textdomain": "draad-az",
+  "editorScript": "file:./index.js",
+  "editorStyle": [
+    "file:./index.css",
+    "file:./style-index.css"
+  ],
+  "style": [
+    "file:./style-index.css"
+  ],
+  "viewScript": "file:./view.js"
+}

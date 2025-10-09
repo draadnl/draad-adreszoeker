@@ -1,0 +1,7 @@
+.wp-block-draadnl-draad-adreszoeker-formulier {
+	input[type='text'],
+	input[type='number'],
+	button[type='submit'] {
+		pointer-events: none;
+	}
+}

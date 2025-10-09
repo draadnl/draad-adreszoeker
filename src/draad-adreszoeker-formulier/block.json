@@ -1,0 +1,55 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "draadnl/draad-adreszoeker-formulier",
+	"version": "1.0.0",
+	"title": "Adreszoeker Formulier",
+	"category": "embed",
+	"icon": "smiley",
+	"description": "Adreszoeker blok voor het tonen van het formulier.",
+	"attributes": {
+		"heading": {
+			"type": "string",
+			"source": "text",
+			"selector": "h2",
+			"default": "Hoe zit het met mijn woning?"
+		},
+		"content": {
+			"type": "string",
+			"source": "text",
+			"selector": "p",
+			"default": "Bekijk wat de oplossing in uw woning is voor aardgasvrij wonen"
+		},
+		"button": {
+			"type": "string",
+			"source": "text",
+			"selector": "button",
+			"default": "Bekijk"
+		},
+		"post": {
+			"type": "integer",
+			"default": 0
+		},
+		"postUrl": {
+			"type": "string",
+			"default": ""
+		},
+		"image": {
+			"type": "object",
+			"default": {
+				"url": "",
+				"alt": "",
+				"id": null
+			}
+		}
+	},
+	"example": {},
+	"supports": {
+		"html": false
+	},
+	"textdomain": "draad-az",
+	"editorScript": "file:./index.js",
+	"editorStyle": ["file:./index.css", "file:./style-index.css"],
+	"style": "file:./style-index.css",
+	"viewScript": "file:./view.js"
+}
