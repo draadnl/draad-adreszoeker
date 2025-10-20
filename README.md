@@ -6,7 +6,7 @@ Tested up to:      6.8
 Stable tag:        2.0.0
 
 
-## Short description
+## Short Description
 
 Plugin for adding the 'Adreszoeker' functionality to denhaag.nl
 
