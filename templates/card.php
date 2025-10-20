@@ -41,8 +41,8 @@ $thumbnailClass = ( $thumbnail ) ? '--has-image' :  '--no-image';
 $cardID = ( get_the_title( $advice ) ) ? 'id="'. esc_attr( strtolower( str_replace( ' ', '-', get_the_title( $advice ) ) ) ) .'"' : '';
 ?>
 
-<article <?= esc_html( $cardID ) ?> class="card --advice-2 <?= esc_attr( $thumbnailClass ) ?>">
-    <<?= esc_html( $tag ) ?> class="card__link" <?= esc_html( $linkUrl ) ?> <?= esc_html( $linkTarget ) ?>>
+<article <?php echo esc_html( $cardID ) ?> class="card --advice-2 <?php echo esc_html( $thumbnailClass ) ?>">
+    <<?php echo esc_html( $tag ) ?> class="card__link" <?php echo esc_html( $linkUrl ) ?> <?php echo esc_html( $linkTarget ) ?>>
     <?php
         echo ( get_the_title( $advice ) ) ? '<h3 class="card__title">' . esc_html( get_the_title( $advice ) ) . '</h3>' : '';
 
@@ -57,5 +57,5 @@ $cardID = ( get_the_title( $advice ) ) ? 'id="'. esc_attr( strtolower( str_repla
 
         echo wp_get_attachment_image( $thumbnail, 'large', false, [ 'class' => 'card__image' ] );
     ?>
-    </<?= esc_html( $tag ) ?>>
+    </<?php echo esc_html( $tag ) ?>>
 </article>

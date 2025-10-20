@@ -91,17 +91,17 @@ class Draad_Adreszoeker_Admin {
                             $isImported = get_option( 'draad_az_import_' . basename( $import['path'] ) . '_completed' );
                     ?>
                         <div class="draad-import-card">
-                            <h3><?= esc_html($import['label']); ?><?= $isImported ? '<span class="check"></span>' : ''; ?></h3>
-                            <p><?= esc_html($import['description']); ?></p>
+                            <h3><?php echo esc_html($import['label']); ?><?php echo $isImported ? '<span class="check"></span>' : ''; ?></h3>
+                            <p><?php echo esc_html($import['description']); ?></p>
                             <form method="post">
                                 <?php wp_nonce_field('import_action', 'draad_adreszoeker_import_nonce'); ?>
-                                <input type="hidden" name="sql_path" value="<?= esc_attr($import['path']); ?>">
-                                <input type="hidden" name="import_type" value="<?= esc_attr($import['type']); ?>">
+                                <input type="hidden" name="sql_path" value="<?php echo esc_attr($import['path']); ?>">
+                                <input type="hidden" name="import_type" value="<?php echo esc_attr($import['type']); ?>">
                                 <p class="submit">
                                     <input type="submit"
-                                           class="button button-primary <?= $isImported ? 'disabled' : ''; ?>"
-                                           value="<?= esc_attr_e( 'Import', 'draad-adreszoeker' ); ?>"
-                                           <?= $isImported ? 'disabled' : ''; ?>>
+                                           class="button button-primary <?php echo $isImported ? 'disabled' : ''; ?>"
+                                           value="<?php esc_attr_e( 'Import', 'draad-adreszoeker' ); ?>"
+                                           <?php echo $isImported ? 'disabled' : ''; ?>>
                                 </p>
                             </form>
                         </div>

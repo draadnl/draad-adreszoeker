@@ -35,7 +35,7 @@ foreach ( $neighbourhoods as $neighbourhood ) :
     <article class="draad-adreszoeker__result">
         
         <div class="draad-adreszoeker__result-heading">
-            <h2 class="draad-adreszoeker__result-title"><?= esc_html( $neighbourhood->post_title ); ?></h2>
+            <h2 class="draad-adreszoeker__result-title"><?php echo esc_html( $neighbourhood->post_title ); ?></h2>
         </div>
 
         <ul class="draad-adreszoeker__result-list">
@@ -126,13 +126,13 @@ foreach ( $neighbourhoods as $neighbourhood ) :
                         <aside class="draad-adreszoeker__result-sidebar">
                             <div class="draad-adreszoeker__result-toc">
 
-                                <h2 class="draad-adreszoeker__result-toc-title"><?= esc_html__( 'Direct naar', 'draad-adreszoeker' ) ?></h2>
+                                <h2 class="draad-adreszoeker__result-toc-title"><?php esc_html_e( 'Direct naar', 'draad-adreszoeker' ) ?></h2>
 
                                 <ul class="draad-adreszoeker__result-toc-list">
                                 <?php foreach ( $anchors as $anchor ) : ?>
 
                                         <li class="draad-adreszoeker__result-toc-item">
-                                            <a href="<?= esc_attr( $anchor['anchor'] ) ?>"><?= esc_html( $anchor['title'] ) ?><i class="far fa-long-arrow-down"></i></a>
+                                            <a href="<?php echo esc_attr( $anchor['anchor'] ) ?>"><?php echo esc_html( $anchor['title'] ) ?><i class="far fa-long-arrow-down"></i></a>
                                         </li>
 
                                 <?php
@@ -142,7 +142,7 @@ foreach ( $neighbourhoods as $neighbourhood ) :
                                 ?>
                                     
                                         <li class="draad-adreszoeker__result-toc-item">
-                                            <a href="#<?= esc_attr( $adreszoekerAddressTitleSanitize ) ?>"><?= esc_html( $adreszoekerAddressTitle ) ?><i class="far fa-long-arrow-down"></i></a>
+                                            <a href="#<?php echo esc_attr( $adreszoekerAddressTitleSanitize ) ?>"><?php echo esc_html( $adreszoekerAddressTitle ) ?><i class="far fa-long-arrow-down"></i></a>
                                         </li>
 
                                 <?php endif; ?>
@@ -185,8 +185,8 @@ foreach ( $neighbourhoods as $neighbourhood ) :
                     <div role="tablist" aria-labelledby="tablist-1" class="draad-tabs__tablist">
                     <?php foreach ( $tabs as $index => $tab ) : ?>
 
-                            <button class="draad-tabs__tab" id="draad-tab-<?= esc_attr( $index ) ?>" type="button" role="tab" aria-controls="draad-tabpanel-<?= esc_attr( $index ) ?>">
-                                <span class="focus"><?= esc_attr( $tab ) ?></span>
+                            <button class="draad-tabs__tab" id="draad-tab-<?php echo esc_attr( $index ) ?>" type="button" role="tab" aria-controls="draad-tabpanel-<?php echo esc_attr( $index ) ?>">
+                                <span class="focus"><?php echo esc_html( $tab ) ?></span>
                             </button>
 
                     <?php endforeach; ?>
@@ -224,10 +224,10 @@ foreach ( $neighbourhoods as $neighbourhood ) :
                         $icon = ( $tabGroup && $tabGroup['icon'] ) ? $tabGroup['icon'] : ''; // Get fontawesome icon
                 ?>
 
-                        <div class="draad-tabs__tabpanel" id="draad-tabpanel-<?= esc_attr( $index ) ?>" role="tabpanel" aria-labelledby="draad-tab-<?= esc_attr( $index ) ?>">
+                        <div class="draad-tabs__tabpanel" id="draad-tabpanel-<?php echo esc_attr( $index ) ?>" role="tabpanel" aria-labelledby="draad-tab-<?php echo esc_attr( $index ) ?>">
 
                             <div class="draad-tabs__tabpanel-heading">
-                                <h3 class="draad-tabs__tabpanel-title"><?= esc_html( $icon . $tab ) ?></h3>
+                                <h3 class="draad-tabs__tabpanel-title"><?php echo esc_html( $icon . $tab ) ?></h3>
                             </div>
 
                         <?php 
@@ -251,7 +251,7 @@ foreach ( $neighbourhoods as $neighbourhood ) :
 
                                 <div class="draad-tabs__tabpanel-grid">
                                     <div class="draad-tabs__quicklinks">
-                                        <h3 class="draad-tabs__quicklinks-title"><?= esc_html__( 'Ga naar:', 'draad-adreszoeker' ) ?></h3>
+                                        <h3 class="draad-tabs__quicklinks-title"><?php esc_html_e( 'Ga naar:', 'draad-adreszoeker' ) ?></h3>
 
                                     <?php 
                                         foreach ( $advice_2 as $page ) {
@@ -304,7 +304,7 @@ foreach ( $neighbourhoods as $neighbourhood ) :
         </div>
 
         <button class="draad-adreszoeker__close-advice button close-button result-close">
-            <span class="sr-only"><?= esc_html__( 'Resultaat sluiten', 'draad-adreszoeker' ) ?></span>
+            <span class="sr-only"><?php esc_html_e( 'Resultaat sluiten', 'draad-adreszoeker' ) ?></span>
             <span class="icon cross fa-solid fa-xmark"></span>
         </button>
 

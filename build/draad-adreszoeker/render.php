@@ -18,7 +18,7 @@
 				<input type="number" id="huisnummer" name="housenumber" placeholder="<?php esc_attr_e('Vul uw huisnummer in.', 'draad-adreszoeker') ?>" max="9999" disabled required aria-required="true">
 			</div>
 
-			<input type="hidden" name="admin-ajax" value="<?= esc_attr( admin_url('admin-ajax.php') ); ?>">
+			<input type="hidden" name="admin-ajax" value="<?php echo esc_attr( admin_url('admin-ajax.php') ); ?>">
 			<input type="hidden" name="action" value="draad_adreszoeker_get_advice">
 			<input class="draad-adreszoeker__submit" type="submit" value="<?php esc_attr_e('Bekijk resultaat', 'draad-adreszoeker') ?>" />
 		</search>
