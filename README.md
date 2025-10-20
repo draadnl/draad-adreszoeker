@@ -1,26 +1,30 @@
 # Draad Adreszoeker
 
-Contributors:      Draad Internet &amp; Media B.V.
+Author:      Draad Internet &amp; Media B.V.
 Tags:              block
-Tested up to:      6.8.2
+Tested up to:      6.8
 Stable tag:        2.0.0
+
+
+## Short description
+
+Plugin for adding the 'Adreszoeker' functionality to denhaag.nl
 
 
 ## Description
 
-This is the long description. No limit, and you can use Markdown (as well as in the following sections).
+Plugin containing 2 native blocks and 1 legacy block using ACF Blocks for adding the 'Adreszoeker' to any page.
+The 'Adreszoeker' is a tool to lookup what citizens of The Hague can do to save on the energy bill.
 
-For backwards compatibility, if this section is missing, the full length of the short description will be used, and
-Markdown parsed.
-
+The blocks contain a search field where citizens of The Hague can lookup their address and then retrieve the accompanying advice
 
 ## Changelog
 
 ### 2.0.0
 
 - Added import page for the addresses database table under Tools
-- Added new Gutenberg block for the adreszoeker form using the The hague design system
-- Added new Gutenberg block for the adreszoeker output using the The hague design system
+- Added new Gutenberg block for the 'Adreszoeker' form using the The hague design system
+- Added new Gutenberg block for the 'Adreszoeker' output using the The hague design system
 
 ### 1.0.0
 
