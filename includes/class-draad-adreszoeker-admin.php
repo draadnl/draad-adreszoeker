@@ -10,7 +10,7 @@ class Draad_Adreszoeker_Admin {
         if (get_transient('draad_adreszoeker_import_complete')) {
             delete_transient('draad_adreszoeker_import_complete');
             echo '<div class="notice notice-success is-dismissible">
-                    <p>' . __('Import process has completed!', 'draad-adreszoeker') . '</p>
+                    <p>' . esc_html__('Import process has completed!', 'draad-adreszoeker') . '</p>
                 </div>';
         }
     }
@@ -45,9 +45,9 @@ class Draad_Adreszoeker_Admin {
             add_option( 'draad_az_import_' . basename( $sql_path ) . '_completed', 1 );
         } else {
             add_action('admin_notices', function() {
-                echo '<div class="notice notice-error"><p>'
+                echo esc_html( '<div class="notice notice-error"><p>'
                    . __('Failed to start import. Check error logs.', 'draad-adreszoeker')
-                   . '</p></div>';
+                   . '</p></div>' );
             });
         }
     }
@@ -76,14 +76,14 @@ class Draad_Adreszoeker_Admin {
         }
         ?>
         <div class="wrap">
-            <h1><?php _e('Adreszoeker Import', 'draad-adreszoeker'); ?></h1>
+            <h1><?php esc_html_e('Adreszoeker Import', 'draad-adreszoeker'); ?></h1>
 
             <?php if (empty($available_imports)): ?>
                 <div class="notice notice-warning">
-                    <p><?php _e('No import files found. Please ensure the SQL files are present in the plugin\'s sql/ directory.', 'draad-adreszoeker'); ?></p>
+                    <p><?php esc_html_e('No import files found. Please ensure the SQL files are present in the plugin\'s sql/ directory.', 'draad-adreszoeker'); ?></p>
                 </div>
             <?php else: ?>
-                <p><?php _e('Select which data you want to import. Each import will run in the background.', 'draad-adreszoeker'); ?></p>
+                <p><?php esc_html_e('Select which data you want to import. Each import will run in the background.', 'draad-adreszoeker'); ?></p>
 
                 <div class="draad-import-buttons">
                     <?php 
@@ -91,16 +91,16 @@ class Draad_Adreszoeker_Admin {
                             $isImported = get_option( 'draad_az_import_' . basename( $import['path'] ) . '_completed' );
                     ?>
                         <div class="draad-import-card">
-                            <h3><?php echo esc_html($import['label']); ?><?= $isImported ? '<span class="check"></span>' : ''; ?></h3>
-                            <p><?php echo esc_html($import['description']); ?></p>
+                            <h3><?= esc_html($import['label']); ?><?= $isImported ? '<span class="check"></span>' : ''; ?></h3>
+                            <p><?= esc_html($import['description']); ?></p>
                             <form method="post">
                                 <?php wp_nonce_field('import_action', 'draad_adreszoeker_import_nonce'); ?>
-                                <input type="hidden" name="sql_path" value="<?php echo esc_attr($import['path']); ?>">
-                                <input type="hidden" name="import_type" value="<?php echo esc_attr($import['type']); ?>">
+                                <input type="hidden" name="sql_path" value="<?= esc_attr($import['path']); ?>">
+                                <input type="hidden" name="import_type" value="<?= esc_attr($import['type']); ?>">
                                 <p class="submit">
                                     <input type="submit"
                                            class="button button-primary <?= $isImported ? 'disabled' : ''; ?>"
-                                           value="<?php echo esc_attr(__('Import', 'draad-adreszoeker')); ?>"
+                                           value="<?= esc_attr_e( 'Import', 'draad-adreszoeker' ); ?>"
                                            <?= $isImported ? 'disabled' : ''; ?>>
                                 </p>
                             </form>

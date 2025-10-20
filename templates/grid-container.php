@@ -40,10 +40,10 @@ foreach ( $neighbourhoods as $neighbourhood ) :
 
         <ul class="draad-adreszoeker__result-list">
             <?php
-                echo ( $neighbourhood->post_title ) ? '<li class="draad-adreszoeker__result-list-item"><strong>' . __( 'Uw buurt', 'draad-az' ) . ': </strong> ' . $neighbourhood->post_title . '</li>' : '';
-                echo ( $bouwjaar ) ? '<li class="draad-adreszoeker__result-list-item"><strong>' . __( 'Bouwjaar woning', 'draad-az' ) . ': </strong> ' . $bouwjaar . '</li>' : '';
-                echo ( $heatSolutionLabel ) ? '<li class="draad-adreszoeker__result-list-item"><strong>' . __( 'Aardgasvrije oplossing voor uw buurt', 'draad-az' ) . ': </strong> ' . ( $heatSolutionLabel === 'Hybride warmtepomp' ? __( 'Hybride warmtepomp (tijdelijk)', 'draad-az' ) : $heatSolutionLabel ) . '</li>' : '';
-                echo ( $energielabel ) ? '<li class="draad-adreszoeker__result-list-item"><strong>' . __( 'Energielabel', 'draad-az' ) . ': </strong> ' . $energielabel . '</li>' : '';
+                echo ( $neighbourhood->post_title ) ? '<li class="draad-adreszoeker__result-list-item"><strong>' . esc_html__( 'Uw buurt', 'draad-az' ) . ': </strong> ' . esc_html( $neighbourhood->post_title ) . '</li>' : '';
+                echo ( $bouwjaar ) ? '<li class="draad-adreszoeker__result-list-item"><strong>' . esc_html__( 'Bouwjaar woning', 'draad-az' ) . ': </strong> ' . esc_html( $bouwjaar ) . '</li>' : '';
+                echo ( $heatSolutionLabel ) ? '<li class="draad-adreszoeker__result-list-item"><strong>' . esc_html__( 'Aardgasvrije oplossing voor uw buurt', 'draad-az' ) . ': </strong> ' . ( $heatSolutionLabel === 'Hybride warmtepomp' ? esc_html__( 'Hybride warmtepomp (tijdelijk)', 'draad-az' ) : esc_html( $heatSolutionLabel ) ) . '</li>' : '';
+                echo ( $energielabel ) ? '<li class="draad-adreszoeker__result-list-item"><strong>' . esc_html__( 'Energielabel', 'draad-az' ) . ': </strong> ' . esc_html( $energielabel ) . '</li>' : '';
             ?>
         </ul>
 
@@ -126,13 +126,13 @@ foreach ( $neighbourhoods as $neighbourhood ) :
                         <aside class="draad-adreszoeker__result-sidebar">
                             <div class="draad-adreszoeker__result-toc">
 
-                                <h2 class="draad-adreszoeker__result-toc-title"><?= __( 'Direct naar', 'draad-az' ) ?></h2>
+                                <h2 class="draad-adreszoeker__result-toc-title"><?= esc_html__( 'Direct naar', 'draad-az' ) ?></h2>
 
                                 <ul class="draad-adreszoeker__result-toc-list">
                                 <?php foreach ( $anchors as $anchor ) : ?>
 
                                         <li class="draad-adreszoeker__result-toc-item">
-                                            <a href="<?= $anchor['anchor'] ?>"><?= $anchor['title'] ?><i class="far fa-long-arrow-down"></i></a>
+                                            <a href="<?= esc_attr( $anchor['anchor'] ) ?>"><?= esc_html( $anchor['title'] ) ?><i class="far fa-long-arrow-down"></i></a>
                                         </li>
 
                                 <?php
@@ -142,7 +142,7 @@ foreach ( $neighbourhoods as $neighbourhood ) :
                                 ?>
                                     
                                         <li class="draad-adreszoeker__result-toc-item">
-                                            <a href="#<?= $adreszoekerAddressTitleSanitize ?>"><?= $adreszoekerAddressTitle ?><i class="far fa-long-arrow-down"></i></a>
+                                            <a href="#<?= esc_attr( $adreszoekerAddressTitleSanitize ) ?>"><?= esc_html( $adreszoekerAddressTitle ) ?><i class="far fa-long-arrow-down"></i></a>
                                         </li>
 
                                 <?php endif; ?>
@@ -154,39 +154,39 @@ foreach ( $neighbourhoods as $neighbourhood ) :
         <?php
                     endif;
 
-                    echo '<div class="draad-adreszoeker__result-base">' . $content . '</div>';
+                    echo '<div class="draad-adreszoeker__result-base">' . esc_html( $content ) . '</div>';
 
                 endif;
         ?>
 
                 <div class="draad-adreszoeker__result-advice">
                 <?php
-                    echo ( $adreszoekerAddressTitle ) ? '<h3 id="' . $adreszoekerAddressTitleSanitize . '" class="draad-adreszoeker__result-advice-title">' . $adreszoekerAddressTitle . '</h3>' : '';
+                    echo ( $adreszoekerAddressTitle ) ? '<h3 id="' . esc_attr( $adreszoekerAddressTitleSanitize ) . '" class="draad-adreszoeker__result-advice-title">' . esc_html( $adreszoekerAddressTitle ) . '</h3>' : '';
 
-                    echo ( $years && array_values( $years )[0] ) ? '<p class="draad-adreszoeker__result-year">' . __( 'Informatie voor woningen uit', 'draad-az' ) . ' ' . array_values( $years )[0] . '</p>' : '';
+                    echo ( $years && array_values( $years )[0] ) ? '<p class="draad-adreszoeker__result-year">' . esc_html__( 'Informatie voor woningen uit', 'draad-az' ) . ' ' . esc_html( array_values( $years )[0] ) . '</p>' : '';
 
                     if ( $taxonomies && array_keys( $taxonomies )[0] ) {
                         $key = array_keys( $taxonomies )[0];
                         $term = get_term( $key, 'draad_az_build_period' );
 
-                        echo ( $term->description ) ? '<p class="draad-adreszoeker__result-year-content">'. $term->description .'</p>' : '';
+                        echo ( $term->description ) ? '<p class="draad-adreszoeker__result-year-content">'. esc_html( $term->description ) .'</p>' : '';
                     }
 
                     $tabs = [
-                        'isolatie' => __( 'Isolatie', 'draad-az' ),
-                        'ventilatie' => __( 'Ventileren', 'draad-az' ),
-                        'opwekken' => __( 'Energie opwekken en opslaan', 'draad-az' ),
-                        'verwarmen' => __( 'Verwarming', 'draad-az' ),
-                        'koken' => __( 'Koken op inductie', 'draad-az' ),
-                        'subsidies' => __( 'Leningen en subsidies', 'draad-az' ),
+                        'isolatie' => esc_html__( 'Isolatie', 'draad-az' ),
+                        'ventilatie' => esc_html__( 'Ventileren', 'draad-az' ),
+                        'opwekken' => esc_html__( 'Energie opwekken en opslaan', 'draad-az' ),
+                        'verwarmen' => esc_html__( 'Verwarming', 'draad-az' ),
+                        'koken' => esc_html__( 'Koken op inductie', 'draad-az' ),
+                        'subsidies' => esc_html__( 'Leningen en subsidies', 'draad-az' ),
                     ];
                 ?>
 
                     <div role="tablist" aria-labelledby="tablist-1" class="draad-tabs__tablist">
                     <?php foreach ( $tabs as $index => $tab ) : ?>
 
-                            <button class="draad-tabs__tab" id="draad-tab-<?= $index ?>" type="button" role="tab" aria-controls="draad-tabpanel-<?= $index ?>">
-                                <span class="focus"><?= $tab ?></span>
+                            <button class="draad-tabs__tab" id="draad-tab-<?= esc_attr( $index ) ?>" type="button" role="tab" aria-controls="draad-tabpanel-<?= esc_attr( $index ) ?>">
+                                <span class="focus"><?= esc_attr( $tab ) ?></span>
                             </button>
 
                     <?php endforeach; ?>
@@ -224,10 +224,10 @@ foreach ( $neighbourhoods as $neighbourhood ) :
                         $icon = ( $tabGroup && $tabGroup['icon'] ) ? $tabGroup['icon'] : ''; // Get fontawesome icon
                 ?>
 
-                        <div class="draad-tabs__tabpanel" id="draad-tabpanel-<?= $index ?>" role="tabpanel" aria-labelledby="draad-tab-<?= $index ?>">
+                        <div class="draad-tabs__tabpanel" id="draad-tabpanel-<?= esc_attr( $index ) ?>" role="tabpanel" aria-labelledby="draad-tab-<?= esc_attr( $index ) ?>">
 
                             <div class="draad-tabs__tabpanel-heading">
-                                <h3 class="draad-tabs__tabpanel-title"><?= $icon . $tab ?></h3>
+                                <h3 class="draad-tabs__tabpanel-title"><?= esc_html( $icon . $tab ) ?></h3>
                             </div>
 
                         <?php 
@@ -241,7 +241,7 @@ foreach ( $neighbourhoods as $neighbourhood ) :
                                     }
                             
                                     if ( in_array( $heatSolutionKey, $repeater[ 'heat_solution_dropdown' ], true ) && in_array( $periodOutOfTaxonomies, $repeater[ 'period' ], true ) ) {
-                                        echo '<div class="draad-tabs__intro">' . $repeater[ 'content' ] . '</div>';
+                                        echo '<div class="draad-tabs__intro">' . esc_html( $repeater[ 'content' ] ) . '</div>';
                                     }
                                 }
                             }                        
@@ -251,7 +251,7 @@ foreach ( $neighbourhoods as $neighbourhood ) :
 
                                 <div class="draad-tabs__tabpanel-grid">
                                     <div class="draad-tabs__quicklinks">
-                                        <h3 class="draad-tabs__quicklinks-title"><?= __( 'Ga naar:', 'draad-az' ) ?></h3>
+                                        <h3 class="draad-tabs__quicklinks-title"><?= esc_html__( 'Ga naar:', 'draad-az' ) ?></h3>
 
                                     <?php 
                                         foreach ( $advice_2 as $page ) {
@@ -272,7 +272,7 @@ foreach ( $neighbourhoods as $neighbourhood ) :
                                                     $periodCount = $periodCount + 1;
 
                                                     $cardID = ( get_the_title( $id ) ) ? strtolower( str_replace( ' ', '-', get_the_title( $id ) ) ) : '';
-                                                    echo '<a href="#'. $cardID .'" class="draad-tabs__quicklink"><i class="far fa-chevron-right"></i>'. get_the_title( $id ) .'</a>';
+                                                    echo '<a href="#'. esc_attr( $cardID ) .'" class="draad-tabs__quicklink"><i class="far fa-chevron-right"></i>'. get_the_title( $id ) .'</a>';
                                                 }
                                             }
                                         }
@@ -281,7 +281,7 @@ foreach ( $neighbourhoods as $neighbourhood ) :
 
                                 <?php
                                     global $periodCount;
-                                    echo '<span class="draad-tabs__quicklinks-total --'. $periodCount .'"></span>';
+                                    echo '<span class="draad-tabs__quicklinks-total --'. esc_attr( $periodCount ) .'"></span>';
                                 
                                     if ( is_iterable( $advice_2 ) ) {
                                         foreach ( $advice_2 as $advice ) {
@@ -304,7 +304,7 @@ foreach ( $neighbourhoods as $neighbourhood ) :
         </div>
 
         <button class="draad-adreszoeker__close-advice button close-button result-close">
-            <span class="sr-only"><?= __( 'Resultaat sluiten', 'draad-az' ) ?></span>
+            <span class="sr-only"><?= esc_html__( 'Resultaat sluiten', 'draad-az' ) ?></span>
             <span class="icon cross fa-solid fa-xmark"></span>
         </button>
 

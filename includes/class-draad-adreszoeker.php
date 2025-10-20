@@ -46,9 +46,6 @@ if ( !class_exists( 'Draad_Adreszoeker' ) ) {
 		}
 
 		public function set_plugin_data() {
-			$importer = new Draad_Adreszoeker_Import();
-			$admin = new Draad_Adreszoeker_Admin();
-
 			$pluginData = get_plugin_data( DRAAD_ADRESZOEKER_FILE );
 			$this->version = $pluginData['Version'];
 
@@ -56,132 +53,6 @@ if ( !class_exists( 'Draad_Adreszoeker' ) ) {
 				update_option( 'draad_az_version', $this->version );
 			}
 		}
-
-		// public function import_addresses() {
-		// 	global $wpdb;
-
-		// 	$sql_file_path = DRAAD_ADRESZOEKER_DIR . 'data/draad_az_addresses.sql';
-
-		// 	// Check if the SQL file exists
-		// 	if (!file_exists($sql_file_path)) {
-		// 		error_log('SQL file not found: ' . $sql_file_path);
-		// 		return false;
-		// 	}
-
-		// 	// Check if table exists and is not empty
-		// 	$table_name = $wpdb->prefix . 'draad_az_addresses';
-		// 	$table_exists = $wpdb->get_var($wpdb->prepare("SHOW TABLES LIKE %s", $table_name)) === $table_name;
-
-		// 	if ($table_exists) {
-		// 		$row_count = $wpdb->get_var("SELECT COUNT(*) FROM $table_name");
-		// 		if ($row_count > 0) {
-		// 			// Table exists and has data, skip import
-		// 			return true;
-		// 		}
-		// 	}
-
-		// 	// Set batch size and other parameters
-		// 	$batch_size = 1000; // Reduced batch size for better memory management
-		// 	$query_buffer = '';
-		// 	$in_create_table = false;
-		// 	$line_count = 0;
-
-		// 	// Open the SQL file for reading
-		// 	$handle = fopen($sql_file_path, 'r');
-		// 	if (!$handle) {
-		// 		error_log('Failed to open SQL file: ' . $sql_file_path);
-		// 		return false;
-		// 	}
-
-		// 	// Temporary disable time limit for large imports
-		// 	set_time_limit(0);
-
-		// 	// Start transaction for better performance
-		// 	$wpdb->query('START TRANSACTION');
-
-		// 	try {
-		// 		// Process the file line by line
-		// 		while (($line = fgets($handle)) !== false) {
-		// 			$line = trim($line);
-		// 			$line_count++;
-
-		// 			// Skip empty lines and comments
-		// 			if (empty($line) || strpos($line, '--') === 0 || strpos($line, '/*') === 0) {
-		// 				continue;
-		// 			}
-
-		// 			// Handle CREATE TABLE statement
-		// 			if (strpos($line, 'CREATE TABLE') !== false) {
-		// 				$in_create_table = true;
-		// 				$query_buffer = $line;
-		// 				continue;
-		// 			}
-
-		// 			// If we're in a CREATE TABLE statement, keep adding lines until we hit a semicolon
-		// 			if ($in_create_table) {
-		// 				$query_buffer .= ' ' . $line;
-
-		// 				// If we've reached the end of the CREATE TABLE statement
-		// 				if (strpos($line, ';') !== false) {
-		// 					$in_create_table = false;
-		// 					$query = str_replace('wp_', $wpdb->prefix, $query_buffer);
-
-		// 					// Execute the CREATE TABLE query
-		// 					if (!$wpdb->query($query)) {
-		// 						error_log('SQL import error in CREATE TABLE: ' . $wpdb->last_error);
-		// 						error_log('Failed query: ' . substr($query, 0, 500) . '...');
-		// 						throw new Exception('Failed to create table');
-		// 					}
-
-		// 					$query_buffer = '';
-		// 				}
-		// 				continue;
-		// 			}
-
-		// 			// For INSERT statements, buffer them until we hit a semicolon
-		// 			if (strpos($line, 'INSERT INTO') !== false || !empty($query_buffer)) {
-		// 				$query_buffer .= ' ' . $line;
-
-		// 				// If we've reached the end of an INSERT statement
-		// 				if (strpos($line, ';') !== false) {
-		// 					$query = str_replace('wp_', $wpdb->prefix, $query_buffer);
-
-		// 					// Execute the INSERT query
-		// 					if (!$wpdb->query($query)) {
-		// 						error_log('SQL import error in INSERT: ' . $wpdb->last_error);
-		// 						error_log('Failed query: ' . substr($query, 0, 500) . '...');
-		// 						throw new Exception('Failed to insert data');
-		// 					}
-
-		// 					$query_buffer = '';
-
-		// 					// Commit every batch_size queries to avoid transaction getting too large
-		// 					if ($line_count % $batch_size === 0) {
-		// 						$wpdb->query('COMMIT');
-		// 						$wpdb->query('START TRANSACTION');
-		// 						usleep(100000); // 100ms pause between batches
-		// 					}
-		// 				}
-		// 			}
-		// 		}
-
-		// 		// Commit any remaining transactions
-		// 		$wpdb->query('COMMIT');
-
-		// 		// Optimize the table after import
-		// 		$wpdb->query("OPTIMIZE TABLE $table_name");
-
-		// 		fclose($handle);
-		// 		return true;
-
-		// 	} catch (Exception $e) {
-		// 		// Rollback transaction on error
-		// 		$wpdb->query('ROLLBACK');
-		// 		fclose($handle);
-		// 		error_log('SQL import failed: ' . $e->getMessage());
-		// 		return false;
-		// 	}
-		// }
 
 		public function register_block() {
 			register_block_type( DRAAD_ADRESZOEKER_DIR . '/build/draad-adreszoeker' );
@@ -218,7 +89,7 @@ if ( !class_exists( 'Draad_Adreszoeker' ) ) {
 
 			wp_send_json_success($results ?: []);
 
-			wp_send_json_success( __( 'Mooie lijst met straten.', 'draad-az' ) );
+			wp_send_json_success( esc_html__( 'Mooie lijst met straten.', 'draad-az' ) );
 
 		}
 
@@ -228,13 +99,13 @@ if ( !class_exists( 'Draad_Adreszoeker' ) ) {
 			$streetQuery = preg_replace( '/[^\w\s]/u', '', $streetQuery );
 
 			if (  empty( $streetQuery ) || strlen( $streetQuery ) < 2 ) {
-				wp_send_json_error(__( 'Straatnaam moet minimaal 2 karakters bevatten.', 'draad-az' ));
+				wp_send_json_error( esc_html__( 'Straatnaam moet minimaal 2 karakters bevatten.', 'draad-az' ) );
 			}
 
 			$number = (int) filter_input( INPUT_POST,'number', FILTER_SANITIZE_NUMBER_INT ) ?: 0;
 
 			if ( !$number ) {
-				wp_send_json_error( __( 'Ongeldig huisnummer opgegeven.', 'draad-az' ) );
+				wp_send_json_error( esc_html__( 'Ongeldig huisnummer opgegeven.', 'draad-az' ) );
 			}
 
 			global $wpdb;
@@ -252,7 +123,7 @@ if ( !class_exists( 'Draad_Adreszoeker' ) ) {
 
 			wp_send_json_success($output);
 
-			wp_send_json_success( __( 'Resultaten successvol opgehaald.', 'draad-az' ) );
+			wp_send_json_success( esc_html__( 'Resultaten successvol opgehaald.', 'draad-az' ) );
 
 		}
 
@@ -262,13 +133,13 @@ if ( !class_exists( 'Draad_Adreszoeker' ) ) {
 			$streetQuery = preg_replace( '/[^\w\s]/u', '', $streetQuery );
 
 			if (  empty( $streetQuery ) || strlen( $streetQuery ) < 2 ) {
-				wp_send_json_error(__( 'Straatnaam moet minimaal 2 karakters bevatten.', 'draad-az' ));
+				wp_send_json_error( esc_html__( 'Straatnaam moet minimaal 2 karakters bevatten.', 'draad-az' ) );
 			}
 
 			$number = (int) filter_input( INPUT_POST,'number', FILTER_SANITIZE_NUMBER_INT ) ?: 0;
 
 			if ( !$number ) {
-				wp_send_json_error( __( 'Ongeldig huisnummer opgegeven.', 'draad-az' ) );
+				wp_send_json_error( esc_html__( 'Ongeldig huisnummer opgegeven.', 'draad-az' ) );
 			}
 
 			global $wpdb;
@@ -282,7 +153,7 @@ if ( !class_exists( 'Draad_Adreszoeker' ) ) {
 			$neighbourhood_data = $wpdb->get_row( $query, ARRAY_A );
 			
 			if ( !$neighbourhood_data ) {
-				wp_send_json_error( __( 'Geen gegevens gevonden voor dit adres.', 'draad-az' ) );
+				wp_send_json_error( esc_html__( 'Geen gegevens gevonden voor dit adres.', 'draad-az' ) );
 			}
 
 			$tiles = [];
@@ -302,7 +173,7 @@ if ( !class_exists( 'Draad_Adreszoeker' ) ) {
 			] );
 
 			if ( empty( $neighbourhoods ) ) {
-				wp_send_json_error( __( 'Geen buurt informatie gevonden.', 'draad-az' ) );
+				wp_send_json_error( esc_html__( 'Geen buurt informatie gevonden.', 'draad-az' ) );
 			}
 
 			$neighbourhood = $neighbourhoods[0];
@@ -348,7 +219,7 @@ if ( !class_exists( 'Draad_Adreszoeker' ) ) {
 					foreach ( $matches as $match ) {
 						$title = strip_tags( $match[4] );
 						$anchor = sanitize_title( $title );
-						$new_heading = '<h' . $match[2] . ' id="' . $anchor . '"' . $match[3] . ' class="utrecht-heading-'. $match[2] .'">' . $match[4] . '</h' . $match[2] . '>';
+						$new_heading = '<h' . esc_html( $match[2] ) . ' id="' . esc_attr( $anchor ) . '"' . esc_html( $match[3] ) . ' class="utrecht-heading-'. esc_attr( $match[2] ) .'">' . esc_html( $match[4] ) . '</h' . esc_html( $match[2] ) . '>';
 						$content = str_replace( $match[0], $new_heading, $content );
 
 						$anchors[] = [
@@ -397,12 +268,12 @@ if ( !class_exists( 'Draad_Adreszoeker' ) ) {
 
 			// Get tabs data
 			$tabs_config = [
-				'isolatie' => __( 'Isolatie', 'draad-az' ),
-				'ventilatie' => __( 'Ventileren', 'draad-az' ),
-				'opwekken' => __( 'Energie opwekken en opslaan', 'draad-az' ),
-				'verwarmen' => __( 'Verwarming', 'draad-az' ),
-				'koken' => __( 'Koken op inductie', 'draad-az' ),
-				'subsidies' => __( 'Leningen en subsidies', 'draad-az' ),
+				'isolatie' => esc_html__( 'Isolatie', 'draad-az' ),
+				'ventilatie' => esc_html__( 'Ventileren', 'draad-az' ),
+				'opwekken' => esc_html__( 'Energie opwekken en opslaan', 'draad-az' ),
+				'verwarmen' => esc_html__( 'Verwarming', 'draad-az' ),
+				'koken' => esc_html__( 'Koken op inductie', 'draad-az' ),
+				'subsidies' => esc_html__( 'Leningen en subsidies', 'draad-az' ),
 			];
 
 			$tabs = [];
