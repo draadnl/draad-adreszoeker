@@ -1,13 +1,9 @@
 # Draad Adreszoeker
 
-Author:      Draad Internet &amp; Media B.V.
+Author:            Draad Internet &amp; Media B.V.
 Tags:              block
 Tested up to:      6.8
 Stable tag:        2.0.0
-
-
-## Short Description
-
 Plugin for adding the 'Adreszoeker' functionality to denhaag.nl
 
 
