@@ -16,34 +16,51 @@ function draad_az_register_cpt( $name, $singular, $plural, $params = [] ) {
         'singular_name'         => $singular,
         'menu_name'             => $plural,
         'name_admin_bar'        => $singular,
-        'archives'              => __("{$singular} Archives", 'draad-adreszoeker'),
-        'attributes'            => __("{$singular} Attributes", 'draad-adreszoeker'),
-        'parent_item_colon'     => __("Parent {$singular}:", 'draad-adreszoeker'),
-        'all_items'             => __("All {$plural}", 'draad-adreszoeker'),
-        'add_new_item'          => __("Add New {$singular}", 'draad-adreszoeker'),
-        'add_new'               => __("Add New", 'draad-adreszoeker'),
-        'new_item'              => __("New {$singular}", 'draad-adreszoeker'),
-        'edit_item'             => __("Edit {$singular}", 'draad-adreszoeker'),
-        'update_item'           => __("Update {$singular}", 'draad-adreszoeker'),
-        'view_item'             => __("View {$singular}", 'draad-adreszoeker'),
-        'view_items'            => __("View {$plural}", 'draad-adreszoeker'),
-        'search_items'          => __("Search {$singular}", 'draad-adreszoeker'),
-        'not_found'             => __("Not found", 'draad-adreszoeker'),
-        'not_found_in_trash'    => __("Not found in Trash", 'draad-adreszoeker'),
-        'featured_image'        => __("Featured Image", 'draad-adreszoeker'),
-        'set_featured_image'    => __("Set featured image", 'draad-adreszoeker'),
-        'remove_featured_image' => __("Remove featured image", 'draad-adreszoeker'),
-        'use_featured_image'    => __("Use as featured image", 'draad-adreszoeker'),
-        'insert_into_item'      => __("Insert into {$singular}", 'draad-adreszoeker'),
-        'uploaded_to_this_item' => __("Uploaded to this {$singular}", 'draad-adreszoeker'),
-        'items_list'            => __("{$plural} list", 'draad-adreszoeker'),
-        'items_list_navigation' => __("{$plural} list navigation", 'draad-adreszoeker'),
-        'filter_items_list'     => __("Filter {$plural} list", 'draad-adreszoeker'),
+        // translators: %s: singular post type name
+        'archives'              => sprintf(__('%s Archives', 'draad-adreszoeker'), $singular),
+        // translators: %s: singular post type name
+        'attributes'            => sprintf(__('%s Attributes', 'draad-adreszoeker'), $singular),
+        // translators: %s: singular post type name
+        'parent_item_colon'     => sprintf(__('Parent %s:', 'draad-adreszoeker'), $singular),
+        // translators: %s: plural post type name
+        'all_items'             => sprintf(__('All %s', 'draad-adreszoeker'), $plural),
+        // translators: %s: singular post type name
+        'add_new_item'          => sprintf(__('Add New %s', 'draad-adreszoeker'), $singular),
+        'add_new'               => __('Add New', 'draad-adreszoeker'),
+        // translators: %s: singular post type name
+        'new_item'              => sprintf(__('New %s', 'draad-adreszoeker'), $singular),
+        // translators: %s: singular post type name
+        'edit_item'             => sprintf(__('Edit %s', 'draad-adreszoeker'), $singular),
+        // translators: %s: singular post type name
+        'update_item'           => sprintf(__('Update %s', 'draad-adreszoeker'), $singular),
+        // translators: %s: singular post type name
+        'view_item'             => sprintf(__('View %s', 'draad-adreszoeker'), $singular),
+        // translators: %s: plural post type name
+        'view_items'            => sprintf(__('View %s', 'draad-adreszoeker'), $plural),
+        // translators: %s: singular post type name
+        'search_items'          => sprintf(__('Search %s', 'draad-adreszoeker'), $singular),
+        'not_found'             => __('Not found', 'draad-adreszoeker'),
+        'not_found_in_trash'    => __('Not found in Trash', 'draad-adreszoeker'),
+        'featured_image'        => __('Featured Image', 'draad-adreszoeker'),
+        'set_featured_image'    => __('Set featured image', 'draad-adreszoeker'),
+        'remove_featured_image' => __('Remove featured image', 'draad-adreszoeker'),
+        'use_featured_image'    => __('Use as featured image', 'draad-adreszoeker'),
+        // translators: %s: singular post type name
+        'insert_into_item'      => sprintf(__('Insert into %s', 'draad-adreszoeker'), $singular),
+        // translators: %s: singular post type name
+        'uploaded_to_this_item' => sprintf(__('Uploaded to this %s', 'draad-adreszoeker'), $singular),
+        // translators: %s: plural post type name
+        'items_list'            => sprintf(__('%s list', 'draad-adreszoeker'), $plural),
+        // translators: %s: plural post type name
+        'items_list_navigation' => sprintf(__('%s list navigation', 'draad-adreszoeker'), $plural),
+        // translators: %s: plural post type name
+        'filter_items_list'     => sprintf(__('Filter %s list', 'draad-adreszoeker'), $plural),
     ];
 
     $args = [
         'label'                 => $singular,
-        'description'           => __( "{$singular} Description", 'draad-adreszoeker' ),
+        // translators: %s: singular post type name
+        'description'           => sprintf(__('%s Description', 'draad-adreszoeker'), $singular),
         'labels'                => $labels,
         'supports'              => [ 'title', 'thumbnail', 'revisions' ],
         'hierarchical'          => false,
@@ -68,10 +85,10 @@ function draad_az_register_cpt( $name, $singular, $plural, $params = [] ) {
 
             if ( $key == 'rewrite' ) {
                 $args[$key] = [
-                    'slug'			=> $value,
-                    'with_front'	=> true,
-                    'pages'			=> true,
-                    'feeds'			=> false,
+                    'slug'  => $value,
+                    'with_front' => true,
+                    'pages' => true,
+                    'feeds' => false,
                 ];
                 continue;
             }
@@ -101,26 +118,39 @@ function draad_az_register_tax( $name, $singular, $plural, $post_types, $args = 
 
     // Set labels for taxonomy
     $labels = [
-        'name'                       => __($plural, 'draad-adreszoeker'),
-        'singular_name'              => __($singular, 'draad-adreszoeker'),
-        'menu_name'                  => __($singular, 'draad-adreszoeker'),
-        'all_items'                  => __("All {$plural}", 'draad-adreszoeker'),
-        'parent_item'                => __("Parent {$singular}", 'draad-adreszoeker'),
-        'parent_item_colon'          => __("Parent {$singular}:", 'draad-adreszoeker'),
-        'new_item_name'              => __("New {$singular} Naam", 'draad-adreszoeker'),
-        'add_new_item'               => __("New {$singular} Toevoegen", 'draad-adreszoeker'),
-        'edit_item'                  => __("Edit {$singular}", 'draad-adreszoeker'),
-        'update_item'                => __("Update {$singular}", 'draad-adreszoeker'),
-        'view_item'                  => __("View {$singular}", 'draad-adreszoeker'),
+        'name'                       => $plural,
+        'singular_name'              => $singular,
+        'menu_name'                  => $singular,
+        // translators: %s: plural taxonomy name
+        'all_items'                  => sprintf(__('All %s', 'draad-adreszoeker'), $plural),
+        // translators: %s: singular taxonomy name
+        'parent_item'                => sprintf(__('Parent %s', 'draad-adreszoeker'), $singular),
+        // translators: %s: singular taxonomy name
+        'parent_item_colon'          => sprintf(__('Parent %s:', 'draad-adreszoeker'), $singular),
+        // translators: %s: singular taxonomy name
+        'new_item_name'              => sprintf(__('New %s Naam', 'draad-adreszoeker'), $singular),
+        // translators: %s: singular taxonomy name
+        'add_new_item'               => sprintf(__('New %s Toevoegen', 'draad-adreszoeker'), $singular),
+        // translators: %s: singular taxonomy name
+        'edit_item'                  => sprintf(__('Edit %s', 'draad-adreszoeker'), $singular),
+        // translators: %s: singular taxonomy name
+        'update_item'                => sprintf(__('Update %s', 'draad-adreszoeker'), $singular),
+        // translators: %s: singular taxonomy name
+        'view_item'                  => sprintf(__('View %s', 'draad-adreszoeker'), $singular),
         'separate_items_with_commas' => __('Separate item with commas', 'draad-adreszoeker'),
         'add_or_remove_items'        => __('Add or remove items', 'draad-adreszoeker'),
         'choose_from_most_used'      => __('Choose from the most used', 'draad-adreszoeker'),
-        'popular_items'              => __("Popular {$plural}", 'draad-adreszoeker'),
-        'search_items'               => __("Search {$plural}", 'draad-adreszoeker'),
+        // translators: %s: plural taxonomy name
+        'popular_items'              => sprintf(__('Popular %s', 'draad-adreszoeker'), $plural),
+        // translators: %s: plural taxonomy name
+        'search_items'               => sprintf(__('Search %s', 'draad-adreszoeker'), $plural),
         'not_found'                  => __('Not Found', 'draad-adreszoeker'),
-        'no_terms'                   => __("No {$plural}", 'draad-adreszoeker'),
-        'items_list'                 => __("{$plural} list", 'draad-adreszoeker'),
-        'items_list_navigation'      => __("{$plural} list navigation", 'draad-adreszoeker'),
+        // translators: %s: plural taxonomy name
+        'no_terms'                   => sprintf(__('No %s', 'draad-adreszoeker'), $plural),
+        // translators: %s: plural taxonomy name
+        'items_list'                 => sprintf(__('%s list', 'draad-adreszoeker'), $plural),
+        // translators: %s: plural taxonomy name
+        'items_list_navigation'      => sprintf(__('%s list navigation', 'draad-adreszoeker'), $plural),
     ];
 
     $params = [
@@ -138,9 +168,9 @@ function draad_az_register_tax( $name, $singular, $plural, $post_types, $args = 
         foreach ( $args as $key => $value ) {
             if ( $key == 'rewrite' && is_string( $value ) ) {
                 $params[$key] = [
-                    'slug'			=> $value,
-                    'with_front'	=> true,
-                    'hierarchical'	=> true,
+                    'slug' => $value,
+                    'with_front' => true,
+                    'hierarchical' => true,
                 ];
                 continue;
             }
