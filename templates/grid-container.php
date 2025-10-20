@@ -73,7 +73,7 @@ foreach ( $neighbourhoods as $neighbourhood ) :
 
                 if ( $base_text ) {
 
-                    $build_periods = get_terms( 'draad_az_build_period', [ 'hide_empty' => false ] );
+                    $build_periods = get_terms( [ 'taxonomy' => 'draad_az_build_period',  'hide_empty' => false ] );
                     
                     $bouwjaarInt = (int) $bouwjaar;
 
@@ -109,7 +109,7 @@ foreach ( $neighbourhoods as $neighbourhood ) :
                     $anchors = [];
                     
                     foreach ( $matches as $match ) {
-                        $title = strip_tags( $match[4] );
+                        $title = wp_strip_all_tags( $match[4] );
                         $anchor = sanitize_title( $title );
                         $new_heading = '<h' . $match[2] . ' id="' . $anchor . '"' . $match[3] . '>' . $match[4] . '</h' . $match[2] . '>';
                         $content = str_replace( $match[0], $new_heading, $content );

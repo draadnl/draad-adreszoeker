@@ -99,10 +99,6 @@ function draad_az_register_cpt( $name, $singular, $plural, $params = [] ) {
 
     $post_type = register_post_type($name, $args);
     if ( is_wp_error( $post_type ) ) {
-        $errors = $post_type->get_error_messages();
-        $error_message = ( is_array( $errors ) ) ? $name . ' ' . implode( ', ', $errors ) : '';
-        var_dump($error_message);
-        error_log( 'Could not register post type.' . ' ' . $error_message );
         throw new Exception('Could not register post type.');
     }
 
@@ -112,7 +108,6 @@ function draad_az_register_tax( $name, $singular, $plural, $post_types, $args = 
 
     // Stop if $name is empty
     if (! $name) {
-        error_log('Need to add a name for this custom taxonomy.');
         throw new Exception('Need to add a name for this custom taxonomy.');
     }
 
@@ -181,7 +176,6 @@ function draad_az_register_tax( $name, $singular, $plural, $post_types, $args = 
 
     // registers taxonomy
     if ( ! register_taxonomy($name, $post_types, $params) ) {
-        error_log('Could not register taxonomy.');
         throw new Exception('Could not register taxonomy.');
     }
 

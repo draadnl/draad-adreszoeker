@@ -217,7 +217,7 @@ if ( !class_exists( 'Draad_Adreszoeker' ) ) {
 					preg_match_all( "/(<h([1-3])(.*?))>(.*?)<\/h[1-3]>/", $content, $matches, PREG_SET_ORDER );
 					
 					foreach ( $matches as $match ) {
-						$title = strip_tags( $match[4] );
+						$title = wp_strip_all_tags( $match[4] );
 						$anchor = sanitize_title( $title );
 						$new_heading = '<h' . esc_html( $match[2] ) . ' id="' . esc_attr( $anchor ) . '"' . esc_html( $match[3] ) . ' class="utrecht-heading-'. esc_attr( $match[2] ) .'">' . esc_html( $match[4] ) . '</h' . esc_html( $match[2] ) . '>';
 						$content = str_replace( $match[0], $new_heading, $content );
@@ -238,7 +238,7 @@ if ( !class_exists( 'Draad_Adreszoeker' ) ) {
 			}
 
 			// Get build period information
-			$build_periods = get_terms( 'draad_az_build_period', [ 'hide_empty' => false ] );
+			$build_periods = get_terms( [ 'taxonomy' => 'draad_az_build_period', 'hide_empty' => false ] );
 			$bouwjaarInt = (int) $neighbourhood_data['bouwjaar'];
 			$taxonomies = [];
 			$years = [];

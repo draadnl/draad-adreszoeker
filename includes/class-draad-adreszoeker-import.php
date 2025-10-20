@@ -14,7 +14,6 @@ if ( !class_exists( 'Draad_Adreszoeker_Import' ) ) {
 
             // Validate SQL file
             if ( !$this->validate_sql( $sql_path ) ) {
-                error_log( 'SQL file not valid: ' . $sql_path );
                 return false;
             }
 
@@ -29,7 +28,6 @@ if ( !class_exists( 'Draad_Adreszoeker_Import' ) ) {
 
             // Return if file does not exist
             if ( !file_exists( $sql_path ) ) {
-                error_log( 'SQL file not found: ' . $sql_path );
                 return false;
             }
             
@@ -43,7 +41,6 @@ if ( !class_exists( 'Draad_Adreszoeker_Import' ) ) {
 
             // Extract VALUES section
             if (!preg_match('/INSERT INTO.*VALUES\s*(.*)/is', $sql_content, $matches)) {
-                error_log('Could not parse options SQL file format');
                 return false;
             }
 
@@ -64,12 +61,10 @@ if ( !class_exists( 'Draad_Adreszoeker_Import' ) ) {
                 }
 
                 $this->wpdb->query('COMMIT');
-                error_log('Successfully imported ' . $result . ' options');
                 return true;
 
             } catch (Exception $e) {
                 $this->wpdb->query('ROLLBACK');
-                error_log('Options import error: ' . $e->getMessage());
                 return false;
             }
 
@@ -80,7 +75,6 @@ if ( !class_exists( 'Draad_Adreszoeker_Import' ) ) {
             // Extract table name
             $table_name = $this->extract_table_name( $sql_path );
             if ( !$table_name ) {
-                error_log('Could not parse table name from SQL file');
                 return false;
             }
 
@@ -93,7 +87,6 @@ if ( !class_exists( 'Draad_Adreszoeker_Import' ) ) {
                 // Return if table has rows
                 $row_count = $this->wpdb->get_var("SELECT COUNT(*) FROM $table_name");
                 if ($row_count) {
-                    error_log('Table ' . $table_name . ' already has rows');
                     return false;
                 }
             }
@@ -119,12 +112,10 @@ if ( !class_exists( 'Draad_Adreszoeker_Import' ) ) {
                 return $matches[1];
             }
 
-            error_log('Could not parse table name from SQL file: ' . $sql_path);
             return false;
         }
 
         private function process_sql_file($sql_path, $table_name) {
-            error_log("Starting SQL import from: $sql_path");
 
             $batch_size = 1000;
             $query_buffer = '';
@@ -133,7 +124,6 @@ if ( !class_exists( 'Draad_Adreszoeker_Import' ) ) {
 
             $handle = fopen($sql_path, 'r');
             if (!$handle) {
-                error_log('Failed to open SQL file: ' . $sql_path);
                 return false;
             }
 
@@ -204,7 +194,6 @@ if ( !class_exists( 'Draad_Adreszoeker_Import' ) ) {
             } catch (Exception $e) {
                 $this->wpdb->query('ROLLBACK');
                 fclose($handle);
-                error_log('SQL import failed: ' . $e->getMessage());
                 return false;
             }
         }
