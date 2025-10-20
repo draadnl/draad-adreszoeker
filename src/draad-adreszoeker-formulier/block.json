@@ -47,7 +47,7 @@
 	"supports": {
 		"html": false
 	},
-	"textdomain": "draad-az",
+	"textdomain": "draad-adreszoeker",
 	"editorScript": "file:./index.js",
 	"editorStyle": ["file:./index.css", "file:./style-index.css"],
 	"style": "file:./style-index.css",

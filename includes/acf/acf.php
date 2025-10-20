@@ -9,8 +9,8 @@ add_action( 'admin_menu', function() {
     }
 
     acf_add_options_page( [
-        'page_title'    => __( 'Adreszoeker advies 1', 'draad-az' ),
-        'menu_title'    => __( 'Adreszoeker advies 1', 'draad-az' ),
+        'page_title'    => __( 'Adreszoeker advies 1', 'draad-adreszoeker' ),
+        'menu_title'    => __( 'Adreszoeker advies 1', 'draad-adreszoeker' ),
         'menu_slug'     => 'draad-adreszoeker-instellingen',
         'parent_slug'   => 'edit.php?post_type=draad_az_text',
         'redirect'      => false,
@@ -22,12 +22,12 @@ add_action( 'admin_menu', function() {
 
  function draad_az_return_heat_solutions_acf() {
     return [
-        'bestaand-warmtenet' => __( 'Bestaand warmtenet', 'draad-az' ),
-        'elektrische-warmtepomp' => __( 'Elektrische warmtepomp', 'draad-az' ),
-        'mix-van-warmtenetten-en-warmtepompen' => __( 'Mix van warmtenetten en warmtepompen', 'draad-az' ),
-        'warmtenet-na-2030' => __( 'Warmtenet na 2030', 'draad-az' ),
-        'warmtenet' => __( 'Warmtenet', 'draad-az' ),
-        'hybride-warmtepomp' => __( 'Hybride warmtepomp', 'draad-az' ),
+        'bestaand-warmtenet' => __( 'Bestaand warmtenet', 'draad-adreszoeker' ),
+        'elektrische-warmtepomp' => __( 'Elektrische warmtepomp', 'draad-adreszoeker' ),
+        'mix-van-warmtenetten-en-warmtepompen' => __( 'Mix van warmtenetten en warmtepompen', 'draad-adreszoeker' ),
+        'warmtenet-na-2030' => __( 'Warmtenet na 2030', 'draad-adreszoeker' ),
+        'warmtenet' => __( 'Warmtenet', 'draad-adreszoeker' ),
+        'hybride-warmtepomp' => __( 'Hybride warmtepomp', 'draad-adreszoeker' ),
     ];
  }
 

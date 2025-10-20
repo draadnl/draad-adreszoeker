@@ -46,7 +46,7 @@ import './editor.scss';
 export default function Edit() {
 	return (
 		<div { ...useBlockProps() }>
-			<Placeholder icon={ search } label={ __( 'Adreszoeker', 'draad-az' ) } />
+			<Placeholder icon={ search } label={ __( 'Adreszoeker', 'draad-adreszoeker' ) } />
 		</div>
 	);
 }

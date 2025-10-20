@@ -70,21 +70,21 @@ export default function Edit( props ) {
 	return (
 		<div { ...blockProps }>
 			<InspectorControls>
-				<PanelBody title={ __( 'Instellingen', 'draad-az' ) } initialOpen={ true }>
+				<PanelBody title={ __( 'Instellingen', 'draad-adreszoeker' ) } initialOpen={ true }>
 					<PanelRow>
 						<div style={{ width: '100%' }}>
 							<TextControl
-								label={ __( 'Button tekst', 'draad-az' ) }
+								label={ __( 'Button tekst', 'draad-adreszoeker' ) }
 								value={ button }
 								onChange={ onChangeButton }
-								placeholder={ __( 'Bekijk', 'draad-az' ) }
+								placeholder={ __( 'Bekijk', 'draad-adreszoeker' ) }
 							/>
 						</div>
 					</PanelRow>
 					<PanelRow>
 						<div style={{ width: '100%' }}>
 							<label style={{ marginBottom: '8px', display: 'block', fontWeight: '600' }}>
-								{ __( 'Afbeelding', 'draad-az' ) }
+								{ __( 'Afbeelding', 'draad-adreszoeker' ) }
 							</label>
 							{ image.url && (
 								<div style={{ marginBottom: '12px' }}>
@@ -106,7 +106,7 @@ export default function Edit( props ) {
 											variant={ image.url ? 'secondary' : 'primary' }
 											style={{ marginBottom: '8px' }}
 										>
-											{ image.url ? __( 'Vervang afbeelding', 'draad-az' ) : __( 'Selecteer afbeelding', 'draad-az' ) }
+											{ image.url ? __( 'Vervang afbeelding', 'draad-adreszoeker' ) : __( 'Selecteer afbeelding', 'draad-adreszoeker' ) }
 										</WPButton>
 									) }
 								/>
@@ -117,7 +117,7 @@ export default function Edit( props ) {
 									variant="link"
 									isDestructive
 								>
-									{ __( 'Verwijder afbeelding', 'draad-az' ) }
+									{ __( 'Verwijder afbeelding', 'draad-adreszoeker' ) }
 								</WPButton>
 							) }
 						</div>
@@ -154,7 +154,7 @@ export default function Edit( props ) {
 											className="utrecht-form-field__label"
 											htmlFor="street"
 											>
-											{ __( 'Straatnaam', 'draad-az' ) }
+											{ __( 'Straatnaam', 'draad-adreszoeker' ) }
 										</FormLabel>
 										<Paragraph className="utrecht-form-field__input">
 											<Textbox
@@ -176,7 +176,7 @@ export default function Edit( props ) {
 											className="utrecht-form-field__label"
 											htmlFor="huisnummer"
 											>
-											{ __( 'Huisnummer', 'draad-az' ) }
+											{ __( 'Huisnummer', 'draad-adreszoeker' ) }
 										</FormLabel>
 										<Paragraph className="utrecht-form-field__input">
 											<Textbox

@@ -9,11 +9,11 @@ if ( ! function_exists( 'acf_add_local_field_group' ) ) {
 
 acf_add_local_field_group( [
     'key' => 'group_draad_az_area',
-    'title' => __( 'Buurtcode invoervelden', 'draad-az' ),
+    'title' => __( 'Buurtcode invoervelden', 'draad-adreszoeker' ),
     'fields' => [
         [
             'key' => 'field_draad_az_neighbourhood_code_area',
-            'label' => __( 'Buurtcode', 'draad-az' ),
+            'label' => __( 'Buurtcode', 'draad-adreszoeker' ),
             'name' => 'neigbourhood_code',
             'aria-label' => '',
             'type' => 'number',
@@ -35,7 +35,7 @@ acf_add_local_field_group( [
         ],
         [
             'key' => 'field_draad_az_text_number_area',
-            'label' => __( 'Tekstnummer', 'draad-az' ),
+            'label' => __( 'Tekstnummer', 'draad-adreszoeker' ),
             'name' => 'text_number',
             'aria-label' => '',
             'type' => 'number',
@@ -57,7 +57,7 @@ acf_add_local_field_group( [
         ],
         [
             'key' => 'field_draad_az_heat_solution_dropdown_area',
-            'label' => __( 'Warmte oplossing - dropdown', 'draad-az' ),
+            'label' => __( 'Warmte oplossing - dropdown', 'draad-adreszoeker' ),
             'name' => 'heat_solution_dropdown',
             'aria-label' => '',
             'type' => 'select',

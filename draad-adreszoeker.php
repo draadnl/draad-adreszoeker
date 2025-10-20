@@ -9,7 +9,7 @@
  * Requires Plugins: 	advanced-custom-fields-pro
  * Author:            	Draad Internet &amp; Media B.V.
  * Author URI: 			https://draad.nl/
- * Text Domain:       	draad-az
+ * Text Domain:       	draad-adreszoeker
  *
  * @package DraadAdreszoeker
  */

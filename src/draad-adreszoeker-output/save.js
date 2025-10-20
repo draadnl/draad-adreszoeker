@@ -66,7 +66,7 @@ export default function save( props ) {
 												className="utrecht-form-field__label"
 												htmlFor="street"
 												>
-												{ __( 'Straatnaam', 'draad-az' ) }
+												{ __( 'Straatnaam', 'draad-adreszoeker' ) }
 											</FormLabel>
 											<Paragraph className="utrecht-form-field__input">
 												<Textbox
@@ -88,7 +88,7 @@ export default function save( props ) {
 												className="utrecht-form-field__label"
 												htmlFor="huisnummer"
 												>
-												{ __( 'Huisnummer', 'draad-az' ) }
+												{ __( 'Huisnummer', 'draad-adreszoeker' ) }
 											</FormLabel>
 											<Paragraph className="utrecht-form-field__input">
 												<Textbox

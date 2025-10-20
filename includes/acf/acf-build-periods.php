@@ -9,11 +9,11 @@ if ( ! function_exists( 'acf_add_local_field_group' ) ) {
 
 acf_add_local_field_group( [
     'key' => 'group_draad_az_build_periods',
-    'title' => __( 'Bouwperiodes', 'draad-az' ),
+    'title' => __( 'Bouwperiodes', 'draad-adreszoeker' ),
     'fields' => [
         [
             'key' => 'field_draad_az_start_year_build_periods',
-            'label' => __( 'Bouwperiode startjaar', 'draad-az' ),
+            'label' => __( 'Bouwperiode startjaar', 'draad-adreszoeker' ),
             'name' => 'start_year',
             'aria-label' => '',
             'type' => 'number',
@@ -35,7 +35,7 @@ acf_add_local_field_group( [
         ],
         [
             'key' => 'field_draad_az_end_year_build_periods',
-            'label' => __( 'Bouwperiode eindjaar', 'draad-az' ),
+            'label' => __( 'Bouwperiode eindjaar', 'draad-adreszoeker' ),
             'name' => 'end_year',
             'aria-label' => '',
             'type' => 'number',

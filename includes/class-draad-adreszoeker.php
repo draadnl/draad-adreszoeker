@@ -89,7 +89,7 @@ if ( !class_exists( 'Draad_Adreszoeker' ) ) {
 
 			wp_send_json_success($results ?: []);
 
-			wp_send_json_success( esc_html__( 'Mooie lijst met straten.', 'draad-az' ) );
+			wp_send_json_success( esc_html__( 'Mooie lijst met straten.', 'draad-adreszoeker' ) );
 
 		}
 
@@ -99,13 +99,13 @@ if ( !class_exists( 'Draad_Adreszoeker' ) ) {
 			$streetQuery = preg_replace( '/[^\w\s]/u', '', $streetQuery );
 
 			if (  empty( $streetQuery ) || strlen( $streetQuery ) < 2 ) {
-				wp_send_json_error( esc_html__( 'Straatnaam moet minimaal 2 karakters bevatten.', 'draad-az' ) );
+				wp_send_json_error( esc_html__( 'Straatnaam moet minimaal 2 karakters bevatten.', 'draad-adreszoeker' ) );
 			}
 
 			$number = (int) filter_input( INPUT_POST,'number', FILTER_SANITIZE_NUMBER_INT ) ?: 0;
 
 			if ( !$number ) {
-				wp_send_json_error( esc_html__( 'Ongeldig huisnummer opgegeven.', 'draad-az' ) );
+				wp_send_json_error( esc_html__( 'Ongeldig huisnummer opgegeven.', 'draad-adreszoeker' ) );
 			}
 
 			global $wpdb;
@@ -123,7 +123,7 @@ if ( !class_exists( 'Draad_Adreszoeker' ) ) {
 
 			wp_send_json_success($output);
 
-			wp_send_json_success( esc_html__( 'Resultaten successvol opgehaald.', 'draad-az' ) );
+			wp_send_json_success( esc_html__( 'Resultaten successvol opgehaald.', 'draad-adreszoeker' ) );
 
 		}
 
@@ -133,13 +133,13 @@ if ( !class_exists( 'Draad_Adreszoeker' ) ) {
 			$streetQuery = preg_replace( '/[^\w\s]/u', '', $streetQuery );
 
 			if (  empty( $streetQuery ) || strlen( $streetQuery ) < 2 ) {
-				wp_send_json_error( esc_html__( 'Straatnaam moet minimaal 2 karakters bevatten.', 'draad-az' ) );
+				wp_send_json_error( esc_html__( 'Straatnaam moet minimaal 2 karakters bevatten.', 'draad-adreszoeker' ) );
 			}
 
 			$number = (int) filter_input( INPUT_POST,'number', FILTER_SANITIZE_NUMBER_INT ) ?: 0;
 
 			if ( !$number ) {
-				wp_send_json_error( esc_html__( 'Ongeldig huisnummer opgegeven.', 'draad-az' ) );
+				wp_send_json_error( esc_html__( 'Ongeldig huisnummer opgegeven.', 'draad-adreszoeker' ) );
 			}
 
 			global $wpdb;
@@ -153,7 +153,7 @@ if ( !class_exists( 'Draad_Adreszoeker' ) ) {
 			$neighbourhood_data = $wpdb->get_row( $query, ARRAY_A );
 			
 			if ( !$neighbourhood_data ) {
-				wp_send_json_error( esc_html__( 'Geen gegevens gevonden voor dit adres.', 'draad-az' ) );
+				wp_send_json_error( esc_html__( 'Geen gegevens gevonden voor dit adres.', 'draad-adreszoeker' ) );
 			}
 
 			$tiles = [];
@@ -173,7 +173,7 @@ if ( !class_exists( 'Draad_Adreszoeker' ) ) {
 			] );
 
 			if ( empty( $neighbourhoods ) ) {
-				wp_send_json_error( esc_html__( 'Geen buurt informatie gevonden.', 'draad-az' ) );
+				wp_send_json_error( esc_html__( 'Geen buurt informatie gevonden.', 'draad-adreszoeker' ) );
 			}
 
 			$neighbourhood = $neighbourhoods[0];
@@ -268,12 +268,12 @@ if ( !class_exists( 'Draad_Adreszoeker' ) ) {
 
 			// Get tabs data
 			$tabs_config = [
-				'isolatie' => esc_html__( 'Isolatie', 'draad-az' ),
-				'ventilatie' => esc_html__( 'Ventileren', 'draad-az' ),
-				'opwekken' => esc_html__( 'Energie opwekken en opslaan', 'draad-az' ),
-				'verwarmen' => esc_html__( 'Verwarming', 'draad-az' ),
-				'koken' => esc_html__( 'Koken op inductie', 'draad-az' ),
-				'subsidies' => esc_html__( 'Leningen en subsidies', 'draad-az' ),
+				'isolatie' => esc_html__( 'Isolatie', 'draad-adreszoeker' ),
+				'ventilatie' => esc_html__( 'Ventileren', 'draad-adreszoeker' ),
+				'opwekken' => esc_html__( 'Energie opwekken en opslaan', 'draad-adreszoeker' ),
+				'verwarmen' => esc_html__( 'Verwarming', 'draad-adreszoeker' ),
+				'koken' => esc_html__( 'Koken op inductie', 'draad-adreszoeker' ),
+				'subsidies' => esc_html__( 'Leningen en subsidies', 'draad-adreszoeker' ),
 			];
 
 			$tabs = [];

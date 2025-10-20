@@ -16,34 +16,34 @@ function draad_az_register_cpt( $name, $singular, $plural, $params = [] ) {
         'singular_name'         => $singular,
         'menu_name'             => $plural,
         'name_admin_bar'        => $singular,
-        'archives'              => __("{$singular} Archives", 'draad-az'),
-        'attributes'            => __("{$singular} Attributes", 'draad-az'),
-        'parent_item_colon'     => __("Parent {$singular}:", 'draad-az'),
-        'all_items'             => __("All {$plural}", 'draad-az'),
-        'add_new_item'          => __("Add New {$singular}", 'draad-az'),
-        'add_new'               => __("Add New", 'draad-az'),
-        'new_item'              => __("New {$singular}", 'draad-az'),
-        'edit_item'             => __("Edit {$singular}", 'draad-az'),
-        'update_item'           => __("Update {$singular}", 'draad-az'),
-        'view_item'             => __("View {$singular}", 'draad-az'),
-        'view_items'            => __("View {$plural}", 'draad-az'),
-        'search_items'          => __("Search {$singular}", 'draad-az'),
-        'not_found'             => __("Not found", 'draad-az'),
-        'not_found_in_trash'    => __("Not found in Trash", 'draad-az'),
-        'featured_image'        => __("Featured Image", 'draad-az'),
-        'set_featured_image'    => __("Set featured image", 'draad-az'),
-        'remove_featured_image' => __("Remove featured image", 'draad-az'),
-        'use_featured_image'    => __("Use as featured image", 'draad-az'),
-        'insert_into_item'      => __("Insert into {$singular}", 'draad-az'),
-        'uploaded_to_this_item' => __("Uploaded to this {$singular}", 'draad-az'),
-        'items_list'            => __("{$plural} list", 'draad-az'),
-        'items_list_navigation' => __("{$plural} list navigation", 'draad-az'),
-        'filter_items_list'     => __("Filter {$plural} list", 'draad-az'),
+        'archives'              => __("{$singular} Archives", 'draad-adreszoeker'),
+        'attributes'            => __("{$singular} Attributes", 'draad-adreszoeker'),
+        'parent_item_colon'     => __("Parent {$singular}:", 'draad-adreszoeker'),
+        'all_items'             => __("All {$plural}", 'draad-adreszoeker'),
+        'add_new_item'          => __("Add New {$singular}", 'draad-adreszoeker'),
+        'add_new'               => __("Add New", 'draad-adreszoeker'),
+        'new_item'              => __("New {$singular}", 'draad-adreszoeker'),
+        'edit_item'             => __("Edit {$singular}", 'draad-adreszoeker'),
+        'update_item'           => __("Update {$singular}", 'draad-adreszoeker'),
+        'view_item'             => __("View {$singular}", 'draad-adreszoeker'),
+        'view_items'            => __("View {$plural}", 'draad-adreszoeker'),
+        'search_items'          => __("Search {$singular}", 'draad-adreszoeker'),
+        'not_found'             => __("Not found", 'draad-adreszoeker'),
+        'not_found_in_trash'    => __("Not found in Trash", 'draad-adreszoeker'),
+        'featured_image'        => __("Featured Image", 'draad-adreszoeker'),
+        'set_featured_image'    => __("Set featured image", 'draad-adreszoeker'),
+        'remove_featured_image' => __("Remove featured image", 'draad-adreszoeker'),
+        'use_featured_image'    => __("Use as featured image", 'draad-adreszoeker'),
+        'insert_into_item'      => __("Insert into {$singular}", 'draad-adreszoeker'),
+        'uploaded_to_this_item' => __("Uploaded to this {$singular}", 'draad-adreszoeker'),
+        'items_list'            => __("{$plural} list", 'draad-adreszoeker'),
+        'items_list_navigation' => __("{$plural} list navigation", 'draad-adreszoeker'),
+        'filter_items_list'     => __("Filter {$plural} list", 'draad-adreszoeker'),
     ];
 
     $args = [
         'label'                 => $singular,
-        'description'           => __( "{$singular} Description", 'draad-az' ),
+        'description'           => __( "{$singular} Description", 'draad-adreszoeker' ),
         'labels'                => $labels,
         'supports'              => [ 'title', 'thumbnail', 'revisions' ],
         'hierarchical'          => false,
@@ -101,26 +101,26 @@ function draad_az_register_tax( $name, $singular, $plural, $post_types, $args = 
 
     // Set labels for taxonomy
     $labels = [
-        'name'                       => __($plural, 'draad-az'),
-        'singular_name'              => __($singular, 'draad-az'),
-        'menu_name'                  => __($singular, 'draad-az'),
-        'all_items'                  => __("All {$plural}", 'draad-az'),
-        'parent_item'                => __("Parent {$singular}", 'draad-az'),
-        'parent_item_colon'          => __("Parent {$singular}:", 'draad-az'),
-        'new_item_name'              => __("New {$singular} Naam", 'draad-az'),
-        'add_new_item'               => __("New {$singular} Toevoegen", 'draad-az'),
-        'edit_item'                  => __("Edit {$singular}", 'draad-az'),
-        'update_item'                => __("Update {$singular}", 'draad-az'),
-        'view_item'                  => __("View {$singular}", 'draad-az'),
-        'separate_items_with_commas' => __('Separate item with commas', 'draad-az'),
-        'add_or_remove_items'        => __('Add or remove items', 'draad-az'),
-        'choose_from_most_used'      => __('Choose from the most used', 'draad-az'),
-        'popular_items'              => __("Popular {$plural}", 'draad-az'),
-        'search_items'               => __("Search {$plural}", 'draad-az'),
-        'not_found'                  => __('Not Found', 'draad-az'),
-        'no_terms'                   => __("No {$plural}", 'draad-az'),
-        'items_list'                 => __("{$plural} list", 'draad-az'),
-        'items_list_navigation'      => __("{$plural} list navigation", 'draad-az'),
+        'name'                       => __($plural, 'draad-adreszoeker'),
+        'singular_name'              => __($singular, 'draad-adreszoeker'),
+        'menu_name'                  => __($singular, 'draad-adreszoeker'),
+        'all_items'                  => __("All {$plural}", 'draad-adreszoeker'),
+        'parent_item'                => __("Parent {$singular}", 'draad-adreszoeker'),
+        'parent_item_colon'          => __("Parent {$singular}:", 'draad-adreszoeker'),
+        'new_item_name'              => __("New {$singular} Naam", 'draad-adreszoeker'),
+        'add_new_item'               => __("New {$singular} Toevoegen", 'draad-adreszoeker'),
+        'edit_item'                  => __("Edit {$singular}", 'draad-adreszoeker'),
+        'update_item'                => __("Update {$singular}", 'draad-adreszoeker'),
+        'view_item'                  => __("View {$singular}", 'draad-adreszoeker'),
+        'separate_items_with_commas' => __('Separate item with commas', 'draad-adreszoeker'),
+        'add_or_remove_items'        => __('Add or remove items', 'draad-adreszoeker'),
+        'choose_from_most_used'      => __('Choose from the most used', 'draad-adreszoeker'),
+        'popular_items'              => __("Popular {$plural}", 'draad-adreszoeker'),
+        'search_items'               => __("Search {$plural}", 'draad-adreszoeker'),
+        'not_found'                  => __('Not Found', 'draad-adreszoeker'),
+        'no_terms'                   => __("No {$plural}", 'draad-adreszoeker'),
+        'items_list'                 => __("{$plural} list", 'draad-adreszoeker'),
+        'items_list_navigation'      => __("{$plural} list navigation", 'draad-adreszoeker'),
     ];
 
     $params = [
@@ -159,18 +159,18 @@ function draad_az_register_tax( $name, $singular, $plural, $post_types, $args = 
 
 // adreszoeker basis teksten
 add_action( 'init', function () {
-    draad_az_register_cpt( 'draad_az_text', __( 'Adreszoeker basis', 'draad-az' ), __( 'Adreszoeker basis', 'draad-az' ) );
-    draad_az_register_cpt( 'draad_az_text_2', __( 'Adreszoeker advies 2', 'draad-az' ), __( 'Adreszoeker advies 2', 'draad-az' ) );
-    draad_az_register_cpt( 'draad_az_area', __( 'Buurtcode', 'draad-az' ), __( 'Buurtcodes', 'draad-az' ) );
+    draad_az_register_cpt( 'draad_az_text', __( 'Adreszoeker basis', 'draad-adreszoeker' ), __( 'Adreszoeker basis', 'draad-adreszoeker' ) );
+    draad_az_register_cpt( 'draad_az_text_2', __( 'Adreszoeker advies 2', 'draad-adreszoeker' ), __( 'Adreszoeker advies 2', 'draad-adreszoeker' ) );
+    draad_az_register_cpt( 'draad_az_area', __( 'Buurtcode', 'draad-adreszoeker' ), __( 'Buurtcodes', 'draad-adreszoeker' ) );
 
     // taxonomy
-    draad_az_register_tax( 'draad_az_build_period', __( 'Bouwperiode', 'draad-az' ), __( 'Bouwperiodes', 'draad-az' ), [ 'draad_az_text_2' ] );
+    draad_az_register_tax( 'draad_az_build_period', __( 'Bouwperiode', 'draad-adreszoeker' ), __( 'Bouwperiodes', 'draad-adreszoeker' ), [ 'draad_az_text_2' ] );
 } );
 
 add_action( 'admin_menu', function () {
     add_menu_page(
-        __( 'Draad adreszoeker', 'draad-az' ),
-        __( 'Draad adreszoeker', 'draad-az' ),
+        __( 'Draad adreszoeker', 'draad-adreszoeker' ),
+        __( 'Draad adreszoeker', 'draad-adreszoeker' ),
         'manage_options',
         'edit.php?post_type=draad_az_text',
         '',
@@ -180,32 +180,32 @@ add_action( 'admin_menu', function () {
 
     add_submenu_page(
         'edit.php?post_type=draad_az_text',
-        __( 'Adreszoeker basis', 'draad-az' ),
-        __( 'Adreszoeker basis', 'draad-az' ),
+        __( 'Adreszoeker basis', 'draad-adreszoeker' ),
+        __( 'Adreszoeker basis', 'draad-adreszoeker' ),
         'manage_options',
         'edit.php?post_type=draad_az_text'
     );
 
     add_submenu_page(
         'edit.php?post_type=draad_az_text',
-        __( 'Adreszoeker advies 2', 'draad-az' ),
-        __( 'Adreszoeker advies 2', 'draad-az' ),
+        __( 'Adreszoeker advies 2', 'draad-adreszoeker' ),
+        __( 'Adreszoeker advies 2', 'draad-adreszoeker' ),
         'manage_options',
         'edit.php?post_type=draad_az_text_2'
     );
 
     add_submenu_page(
         'edit.php?post_type=draad_az_text',
-        __( 'Buurtcode', 'draad-az' ),
-        __( 'Buurtcodes', 'draad-az' ),
+        __( 'Buurtcode', 'draad-adreszoeker' ),
+        __( 'Buurtcodes', 'draad-adreszoeker' ),
         'manage_options',
         'edit.php?post_type=draad_az_area'
     );
 
     add_submenu_page(
         'edit.php?post_type=draad_az_text',
-        __( 'Bouwperiode', 'draad-az' ),
-        __( 'Bouwperiodes', 'draad-az' ),
+        __( 'Bouwperiode', 'draad-adreszoeker' ),
+        __( 'Bouwperiodes', 'draad-adreszoeker' ),
         'manage_options',
         'edit-tags.php?taxonomy=draad_az_build_period&post_type=draad_az_text'
     );

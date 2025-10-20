@@ -40,10 +40,10 @@ foreach ( $neighbourhoods as $neighbourhood ) :
 
         <ul class="draad-adreszoeker__result-list">
             <?php
-                echo ( $neighbourhood->post_title ) ? '<li class="draad-adreszoeker__result-list-item"><strong>' . esc_html__( 'Uw buurt', 'draad-az' ) . ': </strong> ' . esc_html( $neighbourhood->post_title ) . '</li>' : '';
-                echo ( $bouwjaar ) ? '<li class="draad-adreszoeker__result-list-item"><strong>' . esc_html__( 'Bouwjaar woning', 'draad-az' ) . ': </strong> ' . esc_html( $bouwjaar ) . '</li>' : '';
-                echo ( $heatSolutionLabel ) ? '<li class="draad-adreszoeker__result-list-item"><strong>' . esc_html__( 'Aardgasvrije oplossing voor uw buurt', 'draad-az' ) . ': </strong> ' . ( $heatSolutionLabel === 'Hybride warmtepomp' ? esc_html__( 'Hybride warmtepomp (tijdelijk)', 'draad-az' ) : esc_html( $heatSolutionLabel ) ) . '</li>' : '';
-                echo ( $energielabel ) ? '<li class="draad-adreszoeker__result-list-item"><strong>' . esc_html__( 'Energielabel', 'draad-az' ) . ': </strong> ' . esc_html( $energielabel ) . '</li>' : '';
+                echo ( $neighbourhood->post_title ) ? '<li class="draad-adreszoeker__result-list-item"><strong>' . esc_html__( 'Uw buurt', 'draad-adreszoeker' ) . ': </strong> ' . esc_html( $neighbourhood->post_title ) . '</li>' : '';
+                echo ( $bouwjaar ) ? '<li class="draad-adreszoeker__result-list-item"><strong>' . esc_html__( 'Bouwjaar woning', 'draad-adreszoeker' ) . ': </strong> ' . esc_html( $bouwjaar ) . '</li>' : '';
+                echo ( $heatSolutionLabel ) ? '<li class="draad-adreszoeker__result-list-item"><strong>' . esc_html__( 'Aardgasvrije oplossing voor uw buurt', 'draad-adreszoeker' ) . ': </strong> ' . ( $heatSolutionLabel === 'Hybride warmtepomp' ? esc_html__( 'Hybride warmtepomp (tijdelijk)', 'draad-adreszoeker' ) : esc_html( $heatSolutionLabel ) ) . '</li>' : '';
+                echo ( $energielabel ) ? '<li class="draad-adreszoeker__result-list-item"><strong>' . esc_html__( 'Energielabel', 'draad-adreszoeker' ) . ': </strong> ' . esc_html( $energielabel ) . '</li>' : '';
             ?>
         </ul>
 
@@ -126,7 +126,7 @@ foreach ( $neighbourhoods as $neighbourhood ) :
                         <aside class="draad-adreszoeker__result-sidebar">
                             <div class="draad-adreszoeker__result-toc">
 
-                                <h2 class="draad-adreszoeker__result-toc-title"><?= esc_html__( 'Direct naar', 'draad-az' ) ?></h2>
+                                <h2 class="draad-adreszoeker__result-toc-title"><?= esc_html__( 'Direct naar', 'draad-adreszoeker' ) ?></h2>
 
                                 <ul class="draad-adreszoeker__result-toc-list">
                                 <?php foreach ( $anchors as $anchor ) : ?>
@@ -163,7 +163,7 @@ foreach ( $neighbourhoods as $neighbourhood ) :
                 <?php
                     echo ( $adreszoekerAddressTitle ) ? '<h3 id="' . esc_attr( $adreszoekerAddressTitleSanitize ) . '" class="draad-adreszoeker__result-advice-title">' . esc_html( $adreszoekerAddressTitle ) . '</h3>' : '';
 
-                    echo ( $years && array_values( $years )[0] ) ? '<p class="draad-adreszoeker__result-year">' . esc_html__( 'Informatie voor woningen uit', 'draad-az' ) . ' ' . esc_html( array_values( $years )[0] ) . '</p>' : '';
+                    echo ( $years && array_values( $years )[0] ) ? '<p class="draad-adreszoeker__result-year">' . esc_html__( 'Informatie voor woningen uit', 'draad-adreszoeker' ) . ' ' . esc_html( array_values( $years )[0] ) . '</p>' : '';
 
                     if ( $taxonomies && array_keys( $taxonomies )[0] ) {
                         $key = array_keys( $taxonomies )[0];
@@ -173,12 +173,12 @@ foreach ( $neighbourhoods as $neighbourhood ) :
                     }
 
                     $tabs = [
-                        'isolatie' => esc_html__( 'Isolatie', 'draad-az' ),
-                        'ventilatie' => esc_html__( 'Ventileren', 'draad-az' ),
-                        'opwekken' => esc_html__( 'Energie opwekken en opslaan', 'draad-az' ),
-                        'verwarmen' => esc_html__( 'Verwarming', 'draad-az' ),
-                        'koken' => esc_html__( 'Koken op inductie', 'draad-az' ),
-                        'subsidies' => esc_html__( 'Leningen en subsidies', 'draad-az' ),
+                        'isolatie' => esc_html__( 'Isolatie', 'draad-adreszoeker' ),
+                        'ventilatie' => esc_html__( 'Ventileren', 'draad-adreszoeker' ),
+                        'opwekken' => esc_html__( 'Energie opwekken en opslaan', 'draad-adreszoeker' ),
+                        'verwarmen' => esc_html__( 'Verwarming', 'draad-adreszoeker' ),
+                        'koken' => esc_html__( 'Koken op inductie', 'draad-adreszoeker' ),
+                        'subsidies' => esc_html__( 'Leningen en subsidies', 'draad-adreszoeker' ),
                     ];
                 ?>
 
@@ -251,7 +251,7 @@ foreach ( $neighbourhoods as $neighbourhood ) :
 
                                 <div class="draad-tabs__tabpanel-grid">
                                     <div class="draad-tabs__quicklinks">
-                                        <h3 class="draad-tabs__quicklinks-title"><?= esc_html__( 'Ga naar:', 'draad-az' ) ?></h3>
+                                        <h3 class="draad-tabs__quicklinks-title"><?= esc_html__( 'Ga naar:', 'draad-adreszoeker' ) ?></h3>
 
                                     <?php 
                                         foreach ( $advice_2 as $page ) {
@@ -304,7 +304,7 @@ foreach ( $neighbourhoods as $neighbourhood ) :
         </div>
 
         <button class="draad-adreszoeker__close-advice button close-button result-close">
-            <span class="sr-only"><?= esc_html__( 'Resultaat sluiten', 'draad-az' ) ?></span>
+            <span class="sr-only"><?= esc_html__( 'Resultaat sluiten', 'draad-adreszoeker' ) ?></span>
             <span class="icon cross fa-solid fa-xmark"></span>
         </button>
 

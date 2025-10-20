@@ -9,11 +9,11 @@ if ( ! function_exists( 'acf_add_local_field_group' ) ) {
 
 acf_add_local_field_group( [
     'key' => 'group_draad_az_text_2',
-    'title' => __( 'Bouwperiode - extra velden', 'draad-az' ),
+    'title' => __( 'Bouwperiode - extra velden', 'draad-adreszoeker' ),
     'fields' => [
         [
             'key' => 'field_draad_az_heat_solution_dropdown_text_2',
-            'label' => __( 'Warmte oplossing', 'draad-az' ),
+            'label' => __( 'Warmte oplossing', 'draad-adreszoeker' ),
             'name' => 'heat_solution_dropdown',
             'aria-label' => '',
             'type' => 'checkbox',
@@ -32,11 +32,11 @@ acf_add_local_field_group( [
             'layout' => 'horizontal',
             'toggle' => 0,
             'save_custom' => 0,
-            'custom_choice_button_text' => __( 'Nieuwe keuze toevoegen', 'draad-az' ),
+            'custom_choice_button_text' => __( 'Nieuwe keuze toevoegen', 'draad-adreszoeker' ),
         ],
         [
             'key' => 'field_draad_az_tab_text_2',
-            'label' => __( 'In welk tabje moet deze informatie terug komen', 'draad-az' ),
+            'label' => __( 'In welk tabje moet deze informatie terug komen', 'draad-adreszoeker' ),
             'name' => 'tab',
             'aria-label' => '',
             'type' => 'checkbox',
@@ -49,12 +49,12 @@ acf_add_local_field_group( [
                 'id' => '',
             ],
             'choices' => [
-                'isolatie' => __( 'Isolatie', 'draad-az' ),
-                'ventilatie' => __( 'Ventilatie', 'draad-az' ),
-                'opwekken' => __( 'Opwekken', 'draad-az' ),
-                'verwarmen' => __( 'Verwarmen', 'draad-az' ),
-                'koken' => __( 'Koken', 'draad-az' ),
-                'subsidies' => __( 'Subsidies', 'draad-az' ),
+                'isolatie' => __( 'Isolatie', 'draad-adreszoeker' ),
+                'ventilatie' => __( 'Ventilatie', 'draad-adreszoeker' ),
+                'opwekken' => __( 'Opwekken', 'draad-adreszoeker' ),
+                'verwarmen' => __( 'Verwarmen', 'draad-adreszoeker' ),
+                'koken' => __( 'Koken', 'draad-adreszoeker' ),
+                'subsidies' => __( 'Subsidies', 'draad-adreszoeker' ),
             ],
             'default_value' => [
             ],
@@ -63,15 +63,15 @@ acf_add_local_field_group( [
             'layout' => 'vertical',
             'toggle' => 0,
             'save_custom' => 0,
-            'custom_choice_button_text' => __( 'Nieuwe keuze toevoegen', 'draad-az' ),
+            'custom_choice_button_text' => __( 'Nieuwe keuze toevoegen', 'draad-adreszoeker' ),
         ],
         [
             'key' => 'field_draad_az_link_text_2',
-            'label' => __( 'Link', 'draad-az' ),
+            'label' => __( 'Link', 'draad-adreszoeker' ),
             'name' => 'link',
             'aria-label' => '',
             'type' => 'link',
-            'instructions' => __( 'Vul alleen dit veld in als de tegel ergens naartoe moet linken.', 'draad-az' ),
+            'instructions' => __( 'Vul alleen dit veld in als de tegel ergens naartoe moet linken.', 'draad-adreszoeker' ),
             'required' => 0,
             'conditional_logic' => 0,
             'wrapper' => [
@@ -83,7 +83,7 @@ acf_add_local_field_group( [
         ],
         [
             'key' => 'field_draad_az_content_text_2',
-            'label' => __( 'Content', 'draad-az' ),
+            'label' => __( 'Content', 'draad-adreszoeker' ),
             'name' => 'content',
             'aria-label' => '',
             'type' => 'wysiwyg',

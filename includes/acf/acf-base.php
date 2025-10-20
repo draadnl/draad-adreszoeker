@@ -9,11 +9,11 @@ if ( ! function_exists( 'acf_add_local_field_group' ) ) {
 
 acf_add_local_field_group(  [
     'key' => 'group_draad_az_base',
-    'title' => __( 'Tekst invoervelden', 'draad-az' ),
+    'title' => __( 'Tekst invoervelden', 'draad-adreszoeker' ),
     'fields' => [
         [
             'key' => 'field_draad_az_general_tab_base',
-            'label' => __( 'Algemeen', 'draad-az' ),
+            'label' => __( 'Algemeen', 'draad-adreszoeker' ),
             'name' => '',
             'aria-label' => '',
             'type' => 'tab',
@@ -30,7 +30,7 @@ acf_add_local_field_group(  [
         ],
         [
             'key' => 'field_draad_az_text_base',
-            'label' => __( 'Tekst', 'draad-az' ),
+            'label' => __( 'Tekst', 'draad-adreszoeker' ),
             'name' => 'text',
             'aria-label' => '',
             'type' => 'wysiwyg',
@@ -50,7 +50,7 @@ acf_add_local_field_group(  [
         ],
         [
             'key' => 'field_draad_az_signpost_button_base',
-            'label' => __( 'Wegwijzer knop', 'draad-az' ),
+            'label' => __( 'Wegwijzer knop', 'draad-adreszoeker' ),
             'name' => 'signpost_button',
             'aria-label' => '',
             'type' => 'link',
@@ -66,7 +66,7 @@ acf_add_local_field_group(  [
         ],
         [
             'key' => 'field_draad_az_text_number_main_tab_base',
-            'label' => __( 'Tekstnummer', 'draad-az' ),
+            'label' => __( 'Tekstnummer', 'draad-adreszoeker' ),
             'name' => '',
             'aria-label' => '',
             'type' => 'tab',
@@ -83,7 +83,7 @@ acf_add_local_field_group(  [
         ],
         [
             'key' => 'field_draad_az_text_number_main_base',
-            'label' => __( 'Tekstnummer', 'draad-az' ),
+            'label' => __( 'Tekstnummer', 'draad-adreszoeker' ),
             'name' => 'text_number_main',
             'aria-label' => '',
             'type' => 'number',
@@ -105,7 +105,7 @@ acf_add_local_field_group(  [
         ],
         [
             'key' => 'field_draad_az_text_number_main_tab_tiles',
-            'label' => __( 'Tegels', 'draad-az' ),
+            'label' => __( 'Tegels', 'draad-adreszoeker' ),
             'name' => '',
             'aria-label' => '',
             'type' => 'tab',
