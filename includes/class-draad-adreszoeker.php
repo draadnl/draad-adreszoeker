@@ -111,7 +111,7 @@ if ( !class_exists( 'Draad_Adreszoeker' ) ) {
 			global $wpdb;
 
 			$query = $wpdb->prepare(
-				'SELECT * FROM wp_draad_az_addresses WHERE street = "%s" AND huisnummer = "%d" LIMIT 1',
+				'SELECT * FROM '. $wpdb->prefix .'draad_az_addresses WHERE street = "%s" AND huisnummer = "%d" LIMIT 1',
 				$wpdb->esc_like($streetQuery),
 				$wpdb->esc_like($number)
 			);
@@ -145,7 +145,7 @@ if ( !class_exists( 'Draad_Adreszoeker' ) ) {
 			global $wpdb;
 
 			$query = $wpdb->prepare(
-				'SELECT * FROM wp_draad_az_addresses WHERE street = "%s" AND huisnummer = "%d" LIMIT 1',
+				'SELECT * FROM '. $wpdb->prefix .'draad_az_addresses WHERE street = "%s" AND huisnummer = "%d" LIMIT 1',
 				$wpdb->esc_like($streetQuery),
 				$wpdb->esc_like($number)
 			);
