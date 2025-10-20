@@ -28,7 +28,7 @@ class Draad_Adreszoeker_Admin {
 
     public function handle_import_request() {
         if (!isset($_POST['draad_adreszoeker_import_nonce']) ||
-            !wp_verify_nonce( wp_unslash( $_POST['draad_adreszoeker_import_nonce'] ), 'import_action' )) {
+            !wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['draad_adreszoeker_import_nonce'] ) ), 'import_action' )) {
             return;
         }
 
@@ -37,8 +37,12 @@ class Draad_Adreszoeker_Admin {
         }
 
         $importer = new Draad_Adreszoeker_Import();
-        $sql_path = sanitize_text_field(wp_unslash( $_POST['sql_path'] ) ?? '');
-        $type = sanitize_text_field(wp_unslash( $_POST['import_type'] ) ?? '');
+        if (!isset($_POST['sql_path']) || !isset($_POST['import_type'])) { 
+            return;
+        }
+        
+        $sql_path = sanitize_text_field(wp_unslash( $_POST['sql_path'] ) ?: '');
+        $type = sanitize_text_field(wp_unslash( $_POST['import_type'] ) ?: '');
 
         if ($importer->import($sql_path, $type)) {
             set_transient( 'draad_adreszoeker_import_complete', 1 );

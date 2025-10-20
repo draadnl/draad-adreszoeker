@@ -48,9 +48,10 @@ if ( !class_exists( 'Draad_Adreszoeker_Import' ) ) {
             $values = rtrim($values, ",");
             $values = rtrim($values, ";");
 
-            $query = "INSERT INTO `{$this->wpdb->options}` (`option_name`, `option_value`, `autoload`)
-                    VALUES " . $values;
-
+            $query = $this->wpdb->prepare(
+                "INSERT INTO `{$this->wpdb->options}` (`option_name`, `option_value`, `autoload`) VALUES %s",
+                $values
+            );
             $this->wpdb->query('START TRANSACTION');
 
             try {
@@ -81,11 +82,10 @@ if ( !class_exists( 'Draad_Adreszoeker_Import' ) ) {
             $table_name = str_replace('wp_', $this->wpdb->prefix, $table_name);
 
             // Return if table exists
-            $table_exists = $this->wpdb->get_var( $this->wpdb->prepare("SHOW TABLES LIKE %s", $table_name) ) === $table_name;
+            $table_exists = $this->wpdb->get_var($this->wpdb->prepare("SHOW TABLES LIKE %s", $table_name)) === $table_name;
             if ($table_exists) {
-                
                 // Return if table has rows
-                $row_count = $this->wpdb->get_var("SELECT COUNT(*) FROM $table_name");
+                $row_count = $this->wpdb->get_var($this->wpdb->prepare("SELECT COUNT(*) FROM %i", array($table_name)));
                 if ($row_count) {
                     return false;
                 }
@@ -122,16 +122,20 @@ if ( !class_exists( 'Draad_Adreszoeker_Import' ) ) {
             $in_create_table = false;
             $line_count = 0;
 
-            $handle = fopen($sql_path, 'r');
+            // Use WP_Filesystem
+            require_once(ABSPATH . 'wp-admin/includes/file.php');
+            WP_Filesystem();
+            global $wp_filesystem;
+            $handle = $wp_filesystem->get_contents($sql_path);
             if (!$handle) {
                 return false;
             }
 
-            set_time_limit(0);
             $this->wpdb->query('START TRANSACTION');
 
             try {
-                while (($line = fgets($handle)) !== false) {
+                $lines = explode("\n", $handle);
+                foreach ($lines as $line) {
                     $line = trim($line);
                     $line_count++;
 
@@ -186,14 +190,11 @@ if ( !class_exists( 'Draad_Adreszoeker_Import' ) ) {
                 }
 
                 $this->wpdb->query('COMMIT');
-                $this->wpdb->query("OPTIMIZE TABLE $table_name");
-                fclose($handle);
-
+                $this->wpdb->query($this->wpdb->prepare("OPTIMIZE TABLE %i", $table_name));
                 return true;
 
             } catch (Exception $e) {
                 $this->wpdb->query('ROLLBACK');
-                fclose($handle);
                 return false;
             }
         }
