@@ -33,7 +33,7 @@ class Draad_Adreszoeker_Admin {
         }
 
         if (!current_user_can('manage_options')) {
-            wp_die(__('You do not have sufficient permissions', 'draad-adreszoeker'));
+            wp_die( esc_html__('You do not have sufficient permissions', 'draad-adreszoeker') );
         }
 
         $importer = new Draad_Adreszoeker_Import();

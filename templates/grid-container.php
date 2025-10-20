@@ -272,7 +272,7 @@ foreach ( $neighbourhoods as $neighbourhood ) :
                                                     $periodCount = $periodCount + 1;
 
                                                     $cardID = ( get_the_title( $id ) ) ? strtolower( str_replace( ' ', '-', get_the_title( $id ) ) ) : '';
-                                                    echo '<a href="#'. esc_attr( $cardID ) .'" class="draad-tabs__quicklink"><i class="far fa-chevron-right"></i>'. get_the_title( $id ) .'</a>';
+                                                    echo '<a href="#'. esc_attr( $cardID ) .'" class="draad-tabs__quicklink"><i class="far fa-chevron-right"></i>'. esc_html( get_the_title( $id ) ) .'</a>';
                                                 }
                                             }
                                         }
