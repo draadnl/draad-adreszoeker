@@ -360,6 +360,16 @@ class Draad_Adreszoeker {
 				optionNode.value = '';
 				optionNode.textContent = 'Geen resultaten gevonden';
 				this.streetSuggestionsNode.appendChild(optionNode);
+
+				this.streetInputNode.setAttribute( 'aria-invalid', 'true' );
+				this.numberInputNode.disabled = true;
+
+				// Add notice
+				const noticeElement = document.createElement('span');
+				noticeElement.className = 'draad-adreszoeker__notice';
+				noticeElement.textContent = 'Geen resultaten gevonden';
+				this.streetInputNode.parentNode.appendChild(noticeElement);
+
 				return;
 			} else if (typeof options === 'object') {
 				options.forEach(option => {
@@ -384,6 +394,16 @@ class Draad_Adreszoeker {
 		const redirectUrl = this.filterFormNode.getAttribute('data-redirect');
 		const streetname = formData.get('straatnaam');
 		const housenumber = formData.get('huisnummer');
+			
+		// Check if streetname is valid
+		if ( typeof this.streetInputNode === 'undefined' || !streetname || this.streetInputNode.ariaInvalid ) {
+			return;
+		}
+
+		// Check if housenumber is valid
+		if ( typeof this.numberInputNode === 'undefined' || !housenumber || this.numberInputNode.ariaInvalid ) {
+			return;
+		}
 
 		// Check if output element exists, if not and redirect is set, redirect with parameters
 		if (!this.outputNode && redirectUrl) {
@@ -412,6 +432,23 @@ class Draad_Adreszoeker {
 		})
 		.then(response => response.json())
 		.then(response => {
+
+			console.log( response );
+
+			if ( !response.success ) {
+				const noResultsMessage = document.createElement('div');
+				noResultsMessage.classList.add('draad-adreszoeker__no-results');
+				noResultsMessage.innerHTML = `
+					<div class="utrecht-surface">
+						<div class="draad-adreszoeker__result-heading">
+							<h2 class="utrecht-heading-2 draad-adreszoeker__result-title">${response.data}</h2>
+						</div>
+					</div>`;
+				this.outputNode.innerHTML = '';
+				this.outputNode.appendChild(noResultsMessage);
+				return;
+			}
+
 			// Render React component using React 18 API
 			if (!this.outputNode._reactRoot) {
 				this.outputNode._reactRoot = createRoot(this.outputNode);
@@ -427,11 +464,9 @@ class Draad_Adreszoeker {
 				this.outputNode.querySelectorAll(".draad-tabs__tablist")?.forEach((tablist) => new Draad_Tabs(tablist));
 				this.outputNode.querySelectorAll(".draad-accordion__container")?.forEach((accordion) => new Draad_Accordion(accordion));
 			}, 100);
-			
-			// initializeToggles();
-			// scrollToResult();
 		})
 		.catch(error => {
+			
 			throw new Error(error);
 		});
 	}
