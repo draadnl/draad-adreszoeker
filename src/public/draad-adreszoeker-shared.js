@@ -433,8 +433,6 @@ class Draad_Adreszoeker {
 		.then(response => response.json())
 		.then(response => {
 
-			console.log( response );
-
 			if ( !response.success ) {
 				const noResultsMessage = document.createElement('div');
 				noResultsMessage.classList.add('draad-adreszoeker__no-results');
