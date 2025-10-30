@@ -12,6 +12,8 @@ if ( !class_exists( 'Draad_Adreszoeker' ) ) {
 
 		private static $instance = null;
 
+		private $import_handler;
+
 		private $version;
 
 		public static function get_instance() {
