@@ -3,7 +3,7 @@
 Author:            Draad Internet &amp; Media B.V.
 Tags:              block
 Tested up to:      6.8
-Stable tag:        2.0.1
+Stable tag:        2.0.2
 Plugin for adding the 'Adreszoeker' functionality to denhaag.nl
 
 
@@ -15,6 +15,10 @@ The 'Adreszoeker' is a tool to lookup what citizens of The Hague can do to save 
 The blocks contain a search field where citizens of The Hague can lookup their address and then retrieve the accompanying advice
 
 ## Changelog
+
+### 2.0.2
+
+- Fixed deprecation warning: Deprecated: Creation of dynamic property Draad_Adreszoeker::$import_handler is deprecated
 
 ### 2.0.1
 

@@ -3,7 +3,7 @@
  * Plugin Name:       	Draad Adreszoeker
  * Description: 		Dit is de plugin waarmee adressen kunnen worden gevonden. Op basis van het gevonden adres worden bijbehorende teksten en adviezen ingeladen.
  * Plugin URI:        	https://draad.nl/
- * Version:           	2.0.1
+ * Version:           	2.0.2
  * Requires at least: 	6.8
  * Requires PHP:      	8.1
  * Requires Plugins: 	advanced-custom-fields-pro
