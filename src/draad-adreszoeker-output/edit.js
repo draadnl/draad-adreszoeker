@@ -65,7 +65,7 @@ export default function Edit( props ) {
 		} );
 	};
 
-	const ajaxUrl = '/wp-admin/admin-ajax.php';
+	const ajaxUrl = window.ajaxurl || '/wp-admin/admin-ajax.php';
 
 	return (
 		<div { ...blockProps }>

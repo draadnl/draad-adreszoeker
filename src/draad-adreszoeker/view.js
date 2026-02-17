@@ -100,7 +100,7 @@ function debounce( callback, wait ) {
 
             const formData = new FormData(this.filterFormNode);
             $.ajax({
-                url: formData.get( 'admin-ajax' ),
+                url: window.draadAdreszoekerAjaxUrl || formData.get( 'admin-ajax' ),
                 type: 'POST',
                 data: {
                     action: 'draad_adreszoeker_get_streets',
@@ -140,7 +140,7 @@ function debounce( callback, wait ) {
 
             const formData = new FormData(this.filterFormNode);
             $.ajax({
-                url: formData.get( 'admin-ajax' ),
+                url: window.draadAdreszoekerAjaxUrl || formData.get( 'admin-ajax' ),
                 type: 'POST',
                 data: {
                     action: formData.get( 'action' ),

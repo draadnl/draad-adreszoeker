@@ -36,7 +36,7 @@ export default function save( props ) {
 		className: 'utrecht-theme denhaag-theme draad-adreszoeker'
 	});
 
-	const ajaxUrl = '/wp-admin/admin-ajax.php';
+	const ajaxUrl = window.ajaxurl || '/wp-admin/admin-ajax.php';
 	
 		return (
 			<div { ...blockProps }>

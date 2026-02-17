@@ -336,7 +336,7 @@ class Draad_Adreszoeker {
 		}
 
 		const formData = new FormData(this.filterFormNode);
-		const url = formData.get('admin-ajax');
+		const url = window.draadAdreszoekerAjaxUrl || formData.get('admin-ajax');
 
 		fetch(url + '?action=draad_adreszoeker_get_streets', {
 			method: 'POST',
@@ -420,7 +420,8 @@ class Draad_Adreszoeker {
 			return;									   
 		}
 
-		fetch(formData.get('admin-ajax') + '?action=' + formData.get('action'), {
+		const ajaxUrl = window.draadAdreszoekerAjaxUrl || formData.get('admin-ajax');
+		fetch(ajaxUrl + '?action=' + formData.get('action'), {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/x-www-form-urlencoded',
