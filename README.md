@@ -3,7 +3,7 @@
 Author: Draad Internet & Media B.V.\
 Tags: block\
 Tested up to: 6.8\
-Stable tag: 2.0.3\
+Stable tag: 2.0.4\
 Plugin for adding the 'Adreszoeker' functionality to denhaag.nl
 
 ## Description
@@ -14,6 +14,13 @@ The 'Adreszoeker' is a tool to lookup what citizens of The Hague can do to save 
 The blocks contain a search field where citizens of The Hague can lookup their address and then retrieve the accompanying advice
 
 ## Changelog
+
+### 2.0.4
+
+* Fixed mixed content error on sites behind a reverse proxy by forcing HTTPS on admin-ajax URL
+* Fixed CSS layout: grid columns only applied when image is present in formulier block
+* Fixed CSS layout: negative margin only applied to non-first output block
+* Fixed background color on first output block surface
 
 ### 2.0.3
 

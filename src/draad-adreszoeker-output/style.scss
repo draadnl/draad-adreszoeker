@@ -18,7 +18,16 @@
 	}
 
 	.denhaag-responsive-content {
-		margin-block-start: -17rem;
+
+        &:not(:first-child) {
+		    margin-block-start: -17rem;
+        }
+
+        &:first-child {
+            .utrecht-surface {
+                --utrecht-document-background-color: var(--denhaag-color-warmgrey-1);
+            }
+        }
 
 		@media (width >= 1024px) {
 			--denhaag-responsive-content-max-width: var(--denhaag-responsive-content-sm-max-width);
@@ -83,6 +92,7 @@
 				display: grid;
 				grid-template-columns: 1fr;
 				grid-template-rows: subgrid;
+                margin: 0;
 
 				input {
 					grid-row: 1;

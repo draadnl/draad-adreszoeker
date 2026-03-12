@@ -8,7 +8,9 @@
 		padding: var(--denhaag-space-column-lg, 1.5rem);
 
 		@container draad_adreszoeker (min-width: 713px) {
-			grid-template-columns: 3fr 5fr;
+            &:has(> .utrecht-img) {
+			    grid-template-columns: 3fr 5fr;
+            }
 		}
 
 		@container draad_adreszoeker (min-width: 810px) {
@@ -94,6 +96,7 @@
 				display: grid;
 				grid-template-columns: 1fr;
 				grid-template-rows: subgrid;
+                margin: 0;
 
 				input {
 					grid-row: 1;

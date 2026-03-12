@@ -1,6 +1,6 @@
 {
 	"name": "draad-adreszoeker",
-	"version": "2.0.3",
+	"version": "2.0.4",
 	"author": "Draad Internet & Media B.V.",
 	"homepage": "https://draad.nl/",
 	"main": "build/index.js",
@@ -13,8 +13,7 @@
 		"plugin-zip": "wp-scripts plugin-zip",
 		"start": "wp-scripts start --webpack-copy-php"
 	},
-	"devDependencies": {
-	},
+	"devDependencies": {},
 	"dependencies": {
 		"@wordpress/components": "^29.5.0",
 		"@wordpress/icons": "^10.19.0",
