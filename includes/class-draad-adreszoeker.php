@@ -69,8 +69,8 @@ if ( !class_exists( 'Draad_Adreszoeker' ) ) {
 			// Toggle
 			wp_register_script( 'draad-toggle-script', DRAAD_ADRESZOEKER_URL . 'build/js/toggle.js', [], $this->version, true );
 
-			// Pass admin-ajax URL to frontend scripts
-			$ajax_url_script = 'window.draadAdreszoekerAjaxUrl = ' . wp_json_encode( admin_url( 'admin-ajax.php' ) ) . ';';
+			// Pass admin-ajax URL to frontend scripts (force HTTPS to avoid mixed content behind reverse proxies)
+			$ajax_url_script = 'window.draadAdreszoekerAjaxUrl = ' . wp_json_encode( set_url_scheme( admin_url( 'admin-ajax.php' ), 'https' ) ) . ';';
 			wp_add_inline_script( 'draadnl-draad-adreszoeker-view-script', $ajax_url_script, 'before' );
 			wp_add_inline_script( 'draadnl-draad-adreszoeker-formulier-view-script', $ajax_url_script, 'before' );
 			wp_add_inline_script( 'draadnl-draad-adreszoeker-output-view-script', $ajax_url_script, 'before' );

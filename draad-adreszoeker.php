@@ -6,7 +6,6 @@
  * Version:           	2.0.3
  * Requires at least: 	6.8
  * Requires PHP:      	8.1
- * Requires Plugins: 	advanced-custom-fields-pro
  * Author:            	Draad Internet &amp; Media B.V.
  * Author URI: 			https://draad.nl/
  * Text Domain:       	draad-adreszoeker
