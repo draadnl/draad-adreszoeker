@@ -172,7 +172,7 @@ const AdviceOutput = ({ data }) => {
 													aria-controls={`draad-accordion-details-${index}`}
 													aria-expanded="false"
 													className="draad-accordion__title"
-													id={`draad-accofdion-title-${index}`}
+													id={`draad-accordion-title-${index}`}
 												>
 													{advice.post_title}
 												</button>
@@ -194,7 +194,7 @@ const AdviceOutput = ({ data }) => {
 												</svg>
 											</h3>
 											<div
-												aria-labelledby={`draad-accofdion-title-${index}`}
+												aria-labelledby={`draad-accordion-title-${index}`}
 												className="draad-accordion__details"
 												id={`draad-accordion-details-${index}`}
 												role="region"
@@ -345,6 +345,7 @@ class Draad_Adreszoeker {
 			},
 			body: new URLSearchParams({
 				street: formData.get('straatnaam'),
+				_wpnonce: window.draadAdreszoekerNonce || '',
 			})
 		})
 		.then(response => response.json())
@@ -429,6 +430,7 @@ class Draad_Adreszoeker {
 			body: new URLSearchParams({
 				street: streetname,
 				number: housenumber,
+				_wpnonce: window.draadAdreszoekerNonce || '',
 			})
 		})
 		.then(response => response.json())
@@ -437,12 +439,16 @@ class Draad_Adreszoeker {
 			if ( !response.success ) {
 				const noResultsMessage = document.createElement('div');
 				noResultsMessage.classList.add('draad-adreszoeker__no-results');
-				noResultsMessage.innerHTML = `
-					<div class="utrecht-surface">
-						<div class="draad-adreszoeker__result-heading">
-							<h2 class="utrecht-heading-2 draad-adreszoeker__result-title">${response.data}</h2>
-						</div>
-					</div>`;
+				const surface = document.createElement('div');
+				surface.className = 'utrecht-surface';
+				const heading = document.createElement('h2');
+				heading.className = 'utrecht-heading-2 draad-adreszoeker__result-title';
+				heading.textContent = response.data;
+				const headingWrapper = document.createElement('div');
+				headingWrapper.className = 'draad-adreszoeker__result-heading';
+				headingWrapper.appendChild(heading);
+				surface.appendChild(headingWrapper);
+				noResultsMessage.appendChild(surface);
 				this.outputNode.innerHTML = '';
 				this.outputNode.appendChild(noResultsMessage);
 				return;

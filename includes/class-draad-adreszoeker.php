@@ -36,10 +36,9 @@ if ( !class_exists( 'Draad_Adreszoeker' ) ) {
 
 			// Register assets
 			add_action( 'wp_enqueue_scripts', [ $this, 'register_assets' ] );
+			add_action( 'wp_footer', [ $this, 'print_nonce_script' ] );
 
 			// Register ajax handler.
-			add_action( 'wp_ajax_nopriv_draad_adreszoeker_get_advice', [ $this, 'get_advice' ] );
-			add_action( 'wp_ajax_draad_adreszoeker_get_advice', [ $this, 'get_advice' ] );
 			add_action( 'wp_ajax_nopriv_draad_adreszoeker_get_advice_react', [ $this, 'get_advice_react' ] );
 			add_action( 'wp_ajax_draad_adreszoeker_get_advice_react', [ $this, 'get_advice_react' ] );
 			add_action( 'wp_ajax_nopriv_draad_adreszoeker_get_streets', [ $this, 'get_streets' ] );
@@ -57,7 +56,6 @@ if ( !class_exists( 'Draad_Adreszoeker' ) ) {
 		}
 
 		public function register_block() {
-			register_block_type( DRAAD_ADRESZOEKER_DIR . '/build/draad-adreszoeker' );
 			register_block_type( DRAAD_ADRESZOEKER_DIR . '/build/draad-adreszoeker-formulier' );
 			register_block_type( DRAAD_ADRESZOEKER_DIR . '/build/draad-adreszoeker-output' );
 		}
@@ -71,18 +69,33 @@ if ( !class_exists( 'Draad_Adreszoeker' ) ) {
 
 			// Pass admin-ajax URL to frontend scripts (force HTTPS to avoid mixed content behind reverse proxies)
 			$ajax_url_script = 'window.draadAdreszoekerAjaxUrl = ' . wp_json_encode( set_url_scheme( admin_url( 'admin-ajax.php' ), 'https' ) ) . ';';
-			wp_add_inline_script( 'draadnl-draad-adreszoeker-view-script', $ajax_url_script, 'before' );
 			wp_add_inline_script( 'draadnl-draad-adreszoeker-formulier-view-script', $ajax_url_script, 'before' );
 			wp_add_inline_script( 'draadnl-draad-adreszoeker-output-view-script', $ajax_url_script, 'before' );
 		}
 
+		public function print_nonce_script() {
+			if (
+				! wp_script_is( 'draadnl-draad-adreszoeker-formulier-view-script' ) &&
+				! wp_script_is( 'draadnl-draad-adreszoeker-output-view-script' )
+			) {
+				return;
+			}
+			echo '<script>window.draadAdreszoekerNonce = ' . wp_json_encode( wp_create_nonce( 'draad_adreszoeker' ) ) . ';</script>';
+		}
+
 		public function get_streets() {
+
+			if ( ! check_ajax_referer( 'draad_adreszoeker', '_wpnonce', false ) ) {
+				wp_send_json_error( esc_html__( 'Ongeldige aanvraag.', 'draad-adreszoeker' ), 403 );
+				return;
+			}
 
 			$streetQuery = filter_input( INPUT_POST,'street', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
 			$streetQuery = preg_replace( '/[^\w\s]/u', '', $streetQuery );
 
 			if (  empty( $streetQuery ) || strlen( $streetQuery ) < 2 ) {
-				wp_send_json_error('Straatnaam moet minimaal 2 karakters bevatten.');
+				wp_send_json_error( esc_html__( 'Straatnaam moet minimaal 2 karakters bevatten.', 'draad-adreszoeker' ) );
+				return;
 			}
 
 			global $wpdb;
@@ -97,71 +110,44 @@ if ( !class_exists( 'Draad_Adreszoeker' ) ) {
 
 			wp_send_json_success($results ?: []);
 
-			wp_send_json_success( esc_html__( 'Mooie lijst met straten.', 'draad-adreszoeker' ) );
-
-		}
-
-		public function get_advice() {
-
-			$streetQuery = filter_input( INPUT_POST,'street', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
-			$streetQuery = preg_replace( '/[^\w\s]/u', '', $streetQuery );
-
-			if (  empty( $streetQuery ) || strlen( $streetQuery ) < 2 ) {
-				wp_send_json_error( esc_html__( 'Straatnaam moet minimaal 2 karakters bevatten.', 'draad-adreszoeker' ) );
-			}
-
-			$number = (int) filter_input( INPUT_POST,'number', FILTER_SANITIZE_NUMBER_INT ) ?: 0;
-
-			if ( !$number ) {
-				wp_send_json_error( esc_html__( 'Ongeldig huisnummer opgegeven.', 'draad-adreszoeker' ) );
-			}
-
-			global $wpdb;
-
-			$query = $wpdb->prepare(
-				'SELECT * FROM '. $wpdb->prefix .'draad_az_addresses WHERE street = "%s" AND huisnummer = "%d" LIMIT 1',
-				$wpdb->esc_like($streetQuery),
-				$wpdb->esc_like($number)
-			);
-
-			$neighbourhood = $wpdb->get_row( $query, ARRAY_A );
-			ob_start();
-			require_once DRAAD_ADRESZOEKER_DIR . 'templates/grid-container.php';
-			$output = ob_get_clean();
-
-			wp_send_json_success($output);
-
-			wp_send_json_success( esc_html__( 'Resultaten successvol opgehaald.', 'draad-adreszoeker' ) );
-
 		}
 
 		public function get_advice_react() {
 
+			if ( ! check_ajax_referer( 'draad_adreszoeker', '_wpnonce', false ) ) {
+				wp_send_json_error( esc_html__( 'Ongeldige aanvraag.', 'draad-adreszoeker' ), 403 );
+				return;
+			}
+
 			$streetQuery = filter_input( INPUT_POST,'street', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
 			$streetQuery = preg_replace( '/[^\w\s]/u', '', $streetQuery );
 
 			if (  empty( $streetQuery ) || strlen( $streetQuery ) < 2 ) {
 				wp_send_json_error( esc_html__( 'Straatnaam moet minimaal 2 karakters bevatten.', 'draad-adreszoeker' ) );
+				return;
 			}
 
 			$number = (int) filter_input( INPUT_POST,'number', FILTER_SANITIZE_NUMBER_INT ) ?: 0;
 
 			if ( !$number ) {
 				wp_send_json_error( esc_html__( 'Ongeldig huisnummer opgegeven.', 'draad-adreszoeker' ) );
+				return;
 			}
 
 			global $wpdb;
 
 			$query = $wpdb->prepare(
-				'SELECT * FROM '. $wpdb->prefix .'draad_az_addresses WHERE street = "%s" AND huisnummer = "%d" LIMIT 1',
-				$wpdb->esc_like($streetQuery),
-				$wpdb->esc_like($number)
+				'SELECT * FROM %i WHERE street = %s AND huisnummer = %d LIMIT 1',
+				$wpdb->prefix . 'draad_az_addresses',
+				$streetQuery,
+				$number
 			);
 
 			$neighbourhood_data = $wpdb->get_row( $query, ARRAY_A );
 			
 			if ( !$neighbourhood_data ) {
 				wp_send_json_error( esc_html__( 'Geen gegevens gevonden voor dit adres.', 'draad-adreszoeker' ) );
+				return;
 			}
 
 			$tiles = [];
@@ -182,6 +168,7 @@ if ( !class_exists( 'Draad_Adreszoeker' ) ) {
 
 			if ( empty( $neighbourhoods ) ) {
 				wp_send_json_error( esc_html__( 'Geen buurt informatie gevonden.', 'draad-adreszoeker' ) );
+				return;
 			}
 
 			$neighbourhood = $neighbourhoods[0];
@@ -198,7 +185,7 @@ if ( !class_exists( 'Draad_Adreszoeker' ) ) {
 			$heatSolutionLabel = ( $heatSolution ) ? $heatSolution['label'] : '';
 
 			// Get base content
-			$textNumber = ( get_field( 'text_number', $neighbourhoodID ) ) ? get_field( 'text_number', $neighbourhoodID ) : 0;
+			$textNumber = get_field( 'text_number', $neighbourhoodID ) ?: 0;
 			$baseContent = '';
 			$anchors = [];
 
@@ -317,7 +304,7 @@ if ( !class_exists( 'Draad_Adreszoeker' ) ) {
 				// Get advice items for this tab
 				$advice_2_args = [
 					'post_type' => 'draad_az_text_2',
-					'posts_per_page' => -1,
+					'posts_per_page' => 50,
 					'post_status' => 'publish',
 					'orderby' => 'menu_order',
 					'order' => 'ASC',
@@ -412,7 +399,7 @@ if ( !class_exists( 'Draad_Adreszoeker' ) ) {
 
 				$tile['link'] = get_the_permalink( $tile['post'] );
 				$tile['title'] = get_the_title( $tile['post'] );
-				$tile['description'] = wp_strip_all_tags( get_the_excerpt() , true );
+				$tile['description'] = wp_strip_all_tags( get_the_excerpt( $tile['post'] ), true );
 
 				return $tile;
 
