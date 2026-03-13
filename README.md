@@ -3,7 +3,7 @@
 Author: Draad Internet & Media B.V.\
 Tags: block\
 Tested up to: 6.8\
-Stable tag: 2.0.4\
+Stable tag: 2.0.5\
 Plugin for adding the 'Adreszoeker' functionality to denhaag.nl
 
 ## Description
@@ -14,6 +14,11 @@ The 'Adreszoeker' is a tool to lookup what citizens of The Hague can do to save 
 The blocks contain a search field where citizens of The Hague can lookup their address and then retrieve the accompanying advice
 
 ## Changelog
+
+### 2.0.5
+
+* Fixed 403 errors on AJAX endpoints by adding nonce verification and including `_wpnonce` in frontend requests
+* Reverted minimum WordPress requirement to 6.8
 
 ### 2.0.4
 
