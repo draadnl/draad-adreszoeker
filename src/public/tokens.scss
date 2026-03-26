@@ -2404,7 +2404,8 @@
  * Copyright (c) 2020-2024 Frameless B.V.
  * Copyright (c) 2021-2024 Gemeente Utrecht
  */
-@charset "UTF-8";
+.draad-adreszoeker {
+
 .utrecht-accordion {
 	display: grid;
 	margin-block-end: calc(var(--utrecht-space-around, 0) * var(--utrecht-accordion-margin-block-end, 0));
@@ -9865,6 +9866,8 @@
 .utrecht-youtube-video--html-iframe:not([height]) {
 	height: auto;
 }
+
+} /* end .draad-adreszoeker scope for Utrecht component CSS */
 
 /**
  * Do not edit directly, this file was auto-generated.
