@@ -3,7 +3,7 @@
 Author: Draad Internet & Media B.V.\
 Tags: block\
 Tested up to: 6.8\
-Stable tag: 2.0.7\
+Stable tag: 2.0.8\
 Plugin for adding the 'Adreszoeker' functionality to denhaag.nl
 
 ## Description
@@ -14,6 +14,11 @@ The 'Adreszoeker' is a tool to lookup what citizens of The Hague can do to save 
 The blocks contain a search field where citizens of The Hague can lookup their address and then retrieve the accompanying advice
 
 ## Changelog
+
+### 2.0.8
+
+* Added PostCSS and webpack plugins to automatically scope all component CSS to `.draad-adreszoeker`
+* Fixed JS-inlined styles from @gemeente-denhaag and @utrecht packages leaking globally
 
 ### 2.0.7
 
