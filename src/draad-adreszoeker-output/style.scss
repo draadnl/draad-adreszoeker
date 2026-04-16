@@ -102,20 +102,6 @@
 			}
 		}
 
-		.denhaag-button {
-			min-inline-size: fit-content;
-			inline-size: 100%;
-
-			@container draad_adreszoeker_form (min-width: 350px) {
-				inline-size: 120px;
-			}
-
-			@container draad_adreszoeker_form (min-width: 485px) {
-				grid-row: 2;
-				grid-column: 3;
-				inline-size: 100%;
-			}
-		}
 	}
 
 	.draad-adreszoeker__output {

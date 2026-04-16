@@ -1,0 +1,37 @@
+// Button style corrections for draad-adreszoeker.
+// The Den Haag green palette + primary/secondary action colors are already
+// configured via --denhaag-button-* tokens in tokens.scss under
+// .draad-adreszoeker.denhaag-theme (~line 10913). The dashed ocher focus
+// ring is also token-configured via --utrecht-focus-outline-style/color/width
+// in the same context.
+// This file handles what the token system leaves incomplete:
+//   1. Focus outline-offset: token sets 0px (via --denhaag-focus-offset),
+//      Figma spec is 2px. Uses same selector for cascade override.
+//   2. Common .denhaag-button layout shared by formulier + output blocks.
+
+// Specificity must match .draad-adreszoeker.denhaag-theme (0,2,0) so this
+// rule wins over the token definition. Since this file is compiled after
+// tokens.scss via @use order in draad-adreszoeker-shared.scss, cascade order
+// guarantees the override takes effect.
+.draad-adreszoeker.denhaag-theme {
+	--utrecht-focus-outline-offset: 2px;
+}
+
+.draad-adreszoeker {
+	// Common layout — identical in draad-adreszoeker-formulier and
+	// draad-adreszoeker-output block stylesheets; consolidated here.
+	.denhaag-button {
+		min-inline-size: fit-content;
+		inline-size: 100%;
+
+		@container draad_adreszoeker_form (min-width: 350px) {
+			inline-size: 120px;
+		}
+
+		@container draad_adreszoeker_form (min-width: 485px) {
+			grid-row: 2;
+			grid-column: 3;
+			inline-size: 100%;
+		}
+	}
+}
