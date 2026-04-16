@@ -1,21 +1,27 @@
 // Button style corrections for draad-adreszoeker.
-// The Den Haag green palette + primary/secondary action colors are already
+// Primary/secondary action colors and dashed ocher focus ring are already
 // configured via --denhaag-button-* tokens in tokens.scss under
-// .draad-adreszoeker.denhaag-theme (~line 10913). The dashed ocher focus
-// ring is also token-configured via --utrecht-focus-outline-style/color/width
-// in the same context.
-// This file handles what the token system leaves incomplete:
-//   1. Focus outline-offset: token sets 0px (via --denhaag-focus-offset),
-//      Figma spec is 2px. Uses same selector for cascade override.
-//   2. Common .denhaag-button layout shared by formulier + output blocks.
+// .draad-adreszoeker.denhaag-theme (~line 10913).
+// This file handles what the token system leaves incomplete.
 
-// Specificity must match .draad-adreszoeker.denhaag-theme (0,2,0) so this
-// rule wins over the token definition. Since this file is compiled after
-// tokens.scss via @use order in draad-adreszoeker-shared.scss, cascade order
-// guarantees the override takes effect.
+// Uses .draad-adreszoeker.denhaag-theme (0,2,0) to win over tokens via
+// cascade order (compiled after tokens.scss).
+// The line-height override uses .denhaag-button (0,3,0) to beat the
+// runtime-injected component CSS (0,2,0) which hardcodes line-height: 1.5.
 .draad-adreszoeker.denhaag-theme {
+	// Focus ring offset: Figma spec 2px. Token sets 0 via --denhaag-focus-offset.
 	--utrecht-focus-outline-offset: 2px;
-}
 
-.draad-adreszoeker {
+	// Button sizing: component renders without size="large" so it defaults to
+	// medium tokens. Override to match Figma large spec:
+	// 48px = 2 x 0.40625rem padding + 1.25rem font x 1.75 line-height.
+	--denhaag-button-medium-size-padding-block: var(--denhaag-button-large-size-padding-block);
+	--denhaag-button-medium-size-padding-inline: var(--denhaag-button-large-size-padding-inline);
+	--denhaag-button-font-size: var(--denhaag-button-large-size-font-size);
+
+	// line-height: 1.5 is hardcoded in the component CSS and not overridable via
+	// tokens on the base button. Higher specificity selector needed.
+	.denhaag-button {
+		line-height: var(--denhaag-button-large-size-line-height);
+	}
 }
